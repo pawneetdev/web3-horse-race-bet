@@ -1,0 +1,197 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "horseName",
+						"type": "string"
+					}
+				],
+				"name": "addNewHorse",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "jockeyName",
+						"type": "string"
+					}
+				],
+				"name": "addNewJockey",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getHorses",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "horseId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "horseName",
+								"type": "string"
+							}
+						],
+						"internalType": "struct IHorseRace.Horse[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getJockeys",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "jockeyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "jockeyName",
+								"type": "string"
+							}
+						],
+						"internalType": "struct IHorseRace.Jockey[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "startRace",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "viewWinners",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"horse-bet.sol": "HorseRaceBetting"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"hardhat/console.sol": {
+			"keccak256": "0x60b0215121bf25612a6739fb2f1ec35f31ee82e4a8216c032c8243d904ab3aa9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6e29880d33dd479bb046ba306993d26ccb779a4b1d94a046cb3567f22948bb4d",
+				"dweb:/ipfs/QmfTY1qzPt5C63Wc7y6JqfZr5899NRvXYdCpyLzR5FXQic"
+			]
+		},
+		"horse-bet.sol": {
+			"keccak256": "0xcef358fee244c65bce0258d9fdb3b70f271a2ccebc4ececfc82a37fc8ad64b34",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3665c9e0f483fa0d7ed8e2b114f3bfe9e75b1f520d20da4d10d5d919fa580121",
+				"dweb:/ipfs/QmSMKMbZJXzjpvnoLtDRM3xDpUSqaZfwtSJPcwdA1ZgAZp"
+			]
+		},
+		"i_betting.sol": {
+			"keccak256": "0x18a9127bb9c544e8bc6166c6e216da97aca0a7611d63a6eff4d0d85ca0a8bf41",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3a7b7fcfb6aad95ce189b8760f4903ee07af3026fdb8e7409db8f015ceee7310",
+				"dweb:/ipfs/QmadcTU8W4AvuC1MUkVFVcMvDF3dDXAtiVPqB9sP7DHMNP"
+			]
+		},
+		"i_horse_race.sol": {
+			"keccak256": "0x8b652a66c3d89fb253210ca4261e8d0c4d6a569caf2ef7d1c06984ba3fcd2e98",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2e71ac5e35b4d57048585ed32fb4b080ac53a09822c71d67b861bd0e12926a7f",
+				"dweb:/ipfs/QmTYynLCcbTAneSd8GKes1hGDtYsSQGHKpTN5xyeESC28y"
+			]
+		}
+	},
+	"version": 1
+}

@@ -8,29 +8,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint8",
-						"name": "locationId",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "participatingHorses",
-						"type": "uint256[]"
-					},
-					{
-						"internalType": "uint256[]",
-						"name": "participatingJockeys",
-						"type": "uint256[]"
-					}
-				],
-				"name": "createRace",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "string",
 						"name": "name",
 						"type": "string"
@@ -122,19 +99,6 @@
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					}
-				],
-				"name": "startHorseRace",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -173,19 +137,19 @@
 			]
 		},
 		"i_betting.sol": {
-			"keccak256": "0x1da0eb161e93219a0002098d3493ad4a10e88c6812840d0e5dcef2d3732bd343",
+			"keccak256": "0x6c454cb02c65318483ad9a549fd2a73185a8a06b4650b59f1b7577dfacf93217",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3ab2f0ab31004c1eac56fe3f680df372b0c63e223dae3a727a686917db4abc11",
-				"dweb:/ipfs/QmTtySCwJExQWfANQpa2mYWLvEEdHB1a4zyQS2E3iLWAhB"
+				"bzz-raw://ce930ac28307c4eabcde1069a714522622fb559d5988cd1898c2a1aeb8096107",
+				"dweb:/ipfs/QmZ175ak7BzEAud9cLrU1uD4XYfS3PGfpK4gE3HqThtT5H"
 			]
 		},
 		"i_horse_race.sol": {
-			"keccak256": "0x96c266a9cd244acda20c02234667447946f8e1851ef09d6798555b3f41c4ef09",
+			"keccak256": "0x6a3c1655c300b2a051c64d4aabe02242826ae6604ec805812a88f3edd788b63e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4508620d602dc0555a8667c2fab1f90d5fd06a1b1163a1fddabbdda41c6509c1",
-				"dweb:/ipfs/QmYUe9fQ5r81ktSuwDN3zzPvUFehgA7sMj8CBvtNcEMijS"
+				"bzz-raw://126ab2729be8222bbd5662b6f916db5f75d89f607a6b71d589ae44cd73898fd3",
+				"dweb:/ipfs/Qmb7pmLByiE1RSfqkPpEpwoMg6B2rdfeGEdMh8rQDKEQ6T"
 			]
 		},
 		"i_user_data.sol": {

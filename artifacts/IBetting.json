@@ -49,38 +49,13 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"createRace(uint8,uint256[],uint256[])": "bfc5a1b8",
 			"createUser(string,address)": "f555ffb4",
 			"logInUser(uint256)": "e1cbd1cb",
 			"owner()": "8da5cb5b",
-			"placeBet(uint256,uint256,uint256,uint256)": "fde6adb1",
-			"startHorseRace(uint256)": "57ec9c36"
+			"placeBet(uint256,uint256,uint256,uint256)": "fde6adb1"
 		}
 	},
 	"abi": [
-		{
-			"inputs": [
-				{
-					"internalType": "uint8",
-					"name": "locationId",
-					"type": "uint8"
-				},
-				{
-					"internalType": "uint256[]",
-					"name": "participatingHorses",
-					"type": "uint256[]"
-				},
-				{
-					"internalType": "uint256[]",
-					"name": "participatingJockeys",
-					"type": "uint256[]"
-				}
-			],
-			"name": "createRace",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
 		{
 			"inputs": [
 				{
@@ -174,19 +149,6 @@
 			"name": "placeBet",
 			"outputs": [],
 			"stateMutability": "payable",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "raceId",
-					"type": "uint256"
-				}
-			],
-			"name": "startHorseRace",
-			"outputs": [],
-			"stateMutability": "nonpayable",
 			"type": "function"
 		}
 	]

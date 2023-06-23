@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 import "hardhat/console.sol";
-import "i_betting.sol";
+import "./abstracts/i_betting.sol";
 
 contract HorseRaceBetting is IBetting{
 
@@ -21,11 +21,34 @@ contract HorseRaceBetting is IBetting{
         return jockeys;
     }
 
-    function createNewRace() public {
-        return createNewRace();
+    function createRace(uint locationId,
+        uint[] memory participatingHorses,
+        uint[] memory participatingJockeys) public {
+        Location location;
+        if(locationId == 0){
+            location = Location.NorthAmerica;
+        }else if(locationId == 1){
+            location = Location.Europe;
+        }else if(locationId == 2){
+            location = Location.Australia;
+        }else if(locationId == 3){
+            location = Location.Asia;
+        }
+        return createRace(location, participatingHorses, participatingJockeys);
     }
 
-    function startRace() public returns (uint[] memory) {
-        return startHorseRace();
+    function cancelRace(uint raceId) public {
+        refundRemoveBets(raceId);
+        cancelHorseRace(raceId);
+    }
+
+    function startRace(uint raceId) public {
+        startHorseRace(raceId);
+        calculateWinnings(raceId);
+        claimWinning(raceId);
+    }
+
+    function viewWinners(uint raceId) public view returns (uint[] memory){
+        return races[raceId].raceResults;
     }
 }

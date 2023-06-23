@@ -50,7 +50,7 @@ const DialogComponent: React.FC<BidDialogProps> = function ({
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onBidSubmit} variant="contained" disabled={!bidType}>
+          <Button onClick={onBidSubmit} variant="contained" disabled={!bidType || !horse}>
             Submit Bid
           </Button>
         </DialogActions>

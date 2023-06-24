@@ -53,6 +53,9 @@ const BiddingComponent = () => {
 
   return (
     <div className="outer-container">
+      <div>
+        <img className="img-wrapper" src="/assets/race.gif" alt="race gif"/>
+      </div>
       {races.map((race, index) => {
         return (
           <Card key={race.key} className="wrapper">

@@ -8,6 +8,10 @@
     width: 50%;
     height: 40%;
     margin: 10px;
+    &:hover {
+      transform: scale(1);
+      box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.3);
+    }
   }
   .img-wrapper {
     width: 200px;

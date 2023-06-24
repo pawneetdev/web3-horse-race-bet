@@ -1,10 +1,24 @@
 import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import classes from './HomeComponent.module.scss';
 const HomeComponent = () => {
   const navigate = useNavigate();
+  const [scrollToSection, setScrollToSection] = useState(false);
   const bidHandler = () => {
     navigate('/bid');
+  }
+  useEffect(() => {
+    if (scrollToSection) {
+      const section = document.getElementById('gallery');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+      setScrollToSection(false);
+    }
+  }, [scrollToSection]);
+  const scrollDown = () => {
+    setScrollToSection(true);
   }
   return (
     <div className={classes.outer}>
@@ -16,9 +30,14 @@ const HomeComponent = () => {
             </svg>
           </div>
           <p>Race to the Finish Line!</p>
-          <Button variant="contained" onClick={bidHandler}>
-              Start Bidding
-          </Button>
+          <div className={classes.flex}>
+            <Button variant="contained" onClick={bidHandler} color="success">
+                Start Bidding
+            </Button>
+            <Button variant="contained" onClick={scrollDown} color="secondary">
+                Explore Gallery
+            </Button>
+          </div>
         </div>
       <div className={classes.sectionWrapper}>
         <div className={classes.section}>
@@ -33,13 +52,23 @@ const HomeComponent = () => {
       </div>
       <div className={classes.sectionWrapper}>
         <img src="https://framerusercontent.com/images/dYBKJ0xJdSZEyGIrJFuzNneRKV8.jpg" alt="horce ride" />
-        <div className={classes.section}>
+        <div className={classes.section} id="section-2">
           <p>
             Unleash Your Inner Punter with Expert Strategies
           </p>
           <div>
             Hone your betting skills to maximize your winnings with our collection of expert tips and strategies. Fortune favors the prepared!
           </div>
+        </div>
+      </div>
+      <div id="gallery" className={classes.gallery}>
+        <p>Gallery</p>
+        <div className={classes.imgContainer}>
+          <img src="https://framerusercontent.com/images/dYBKJ0xJdSZEyGIrJFuzNneRKV8.jpg" alt="horce ride" />
+          <img src="https://framerusercontent.com/images/uFcq3SZluhyCUEPheDiI8kCe6vI.jpg" alt="horce ride"/>
+          <img src="https://images.unsplash.com/photo-1507514604110-ba3347c457f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9yc2UlMjByYWNpbmd8ZW58MHx8MHx8fDA%3D&w=1000&q=80" alt="horce ride" />
+          <img src="https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/21ce64b5-9745-4bff-aac5-9e105219aa81.jpg?source=next&fit=scale-down&quality=highest&width=1920&dpr=2" alt="horce ride" />
+          <img src="https://images.news18.com/ibnlive/uploads/2022/05/rich-strike-16521614743x2.jpg?impolicy=website&width=510&height=356" alt="horce ride" />
         </div>
       </div>
     </div>

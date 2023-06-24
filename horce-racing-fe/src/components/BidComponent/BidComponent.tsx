@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Card, CardContent, SelectChangeEvent, Tooltip } from '@mui/material';
-import './BidComponent.scss';
+import classes from './BidComponent.module.scss';
 import { RaceIntf, RACES } from '../../constants/races';
 import DialogComponent from "../DialogComponent/DialogComponent";
 import WalletContext from '../../store/WalletContext';
@@ -52,13 +52,13 @@ const BiddingComponent = () => {
   };
 
   return (
-    <div className="outer-container">
+    <div className={classes['outer-container']}>
       <div>
-        <img className="img-wrapper" src="/assets/race.gif" alt="race gif"/>
+        <img className={classes['img-wrapper']} src="/assets/race.gif" alt="race gif"/>
       </div>
       {races.map((race, index) => {
         return (
-          <Card key={race.key} className="wrapper">
+          <Card key={race.key} className={`${classes.wrapper}`}>
             <CardContent>
               <h2>{race.title}</h2>
               <p>{race.description}</p>

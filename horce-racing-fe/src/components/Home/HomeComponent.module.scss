@@ -1,6 +1,9 @@
+
 .outer {
+  text-align: left;
   p {
     font-family: "DynaPuff", sans-serif;
+    justify-content: center;
   }
   .wrapper {
     display: flex;
@@ -16,6 +19,12 @@
       width: 100px;
       z-index: 4;
     }
+    .flex {
+      display: flex;
+      :first-child {
+        margin-right: 1rem;
+      }
+    }
   }
   .sectionWrapper {
     display: flex;
@@ -27,10 +36,24 @@
       max-width: 100%;
       margin-left: 5px;
     }
-    img {
-      width: 512px;
-      height: 314px;
-      border-radius: 10%;
+  }
+  img {
+    width: 512px;
+    height: 314px;
+    border-radius: 10%;
+  }
+  .imgContainer {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 1.5;
+    img:hover {
+      transform: scale(1.1);
+      box-shadow: 8px 8px 8px 0 rgba(0, 0, 0, 0.3)
     }
+  }
+  .gallery {
+    text-align: center;
   }
 }

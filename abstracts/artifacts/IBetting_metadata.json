@@ -1,0 +1,218 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "cancelHorseRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "createUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "userId",
+						"type": "uint256"
+					}
+				],
+				"name": "logInUser",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "userId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "userWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							}
+						],
+						"internalType": "struct User",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "userId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "horseId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betType",
+						"type": "uint256"
+					}
+				],
+				"name": "placeBet",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"web3-horse-race-bet/abstracts/i_betting.sol": "IBetting"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"hardhat/console.sol": {
+			"keccak256": "0xfb9a1c05ce82a728e108b58b71a09f13d9586fc70555e82d190e9b2f5a6183af",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://99a82d0154a830eab2627cc36e6638b1eeb6766f408575eccb4efbd4e8bde1d0",
+				"dweb:/ipfs/QmZztP46dzfy43QtSqnP2jnhZhtQxjFqhiBMz56b8qC5Ty"
+			]
+		},
+		"web3-horse-race-bet/abstracts/i_betting.sol": {
+			"keccak256": "0xb2657622d548f446af5f131dbc86aa4d37342d338e15f2fdb176eb338ff4bf70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1262a7c5e87b578138d976ff5ecab50abbda0a58fc40e97a1f0184430b75f68a",
+				"dweb:/ipfs/QmaBuEVLC2foGKB4pr4Uh6gskNNUMAqGB2pAgKiPXXcAXp"
+			]
+		},
+		"web3-horse-race-bet/abstracts/i_horse_race.sol": {
+			"keccak256": "0x861bbf93999854bc62a12ecb93b54f5586c8ebedf78af1da7fe8371392c3f329",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3f0a47afb2eeb9cac8e7533fee85af8f9914991de8408186e25ab5ae7ef4fa14",
+				"dweb:/ipfs/QmeJ8V9N4adLdQbKF2eEqwXk71NFnByN3mjBseQ5qp4ek4"
+			]
+		},
+		"web3-horse-race-bet/abstracts/i_user_data.sol": {
+			"keccak256": "0xf3684cbd86e661c07e0d30f22de907a97f7f24fb3d73141071483ca5ccb07449",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2d9fae8a8b99a84ae51600fba780d17e8511ef34ae10b145e464af12fec73782",
+				"dweb:/ipfs/QmTNAYxhvHfWWTmPN67M7vWGJPmFgRwA8fHWWkMYp1kJwv"
+			]
+		},
+		"web3-horse-race-bet/constants/enum.sol": {
+			"keccak256": "0x272c7769f18df1373b1541379d242365ac7d86a00f9e86cf3625e4122eb02358",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://982f19bfde6eef2f61058a958b3d4eda24650b1cc0406d33f5ec7e3a499250d7",
+				"dweb:/ipfs/QmS9YTBYbaYBuvEsYM51L25cFGr6izg1dmGem4MMqc929g"
+			]
+		},
+		"web3-horse-race-bet/models/bet_model.sol": {
+			"keccak256": "0xef8cdf08f73f231a16ce0c33db79e9c96fd6e9295c84a01bc56df96bb9d81fef",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2dc12568fd7b3ee363ded88a24e4ee2209ff9a6b381362468f32ec150e0bac53",
+				"dweb:/ipfs/QmU5BsxByVmexewsuyzSyQKDy6jpoSVXEz8TwRn4azkixx"
+			]
+		},
+		"web3-horse-race-bet/models/horse_jockey_model.sol": {
+			"keccak256": "0xdefcd13831d664cf93d0640f12a2be0f065ca52db370f9cfc90d0dfd70050120",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://146c34baa770a067680a881d3debfeee140ab9d4f84d0a8d44597cc28663b659",
+				"dweb:/ipfs/QmeJzt15TqwT6MbBdmnT37S2yXmZjy6CbUQF3Yrjtx4Q1Y"
+			]
+		},
+		"web3-horse-race-bet/models/race_model.sol": {
+			"keccak256": "0x5f2b9164b401b25e396683ab03783b4da9ec658a9c1602c4fab2e52c1bf6f1a9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1c14b1a111e52d0e57778f7138a54b447c323a67f228d43e68c8d2b64d829263",
+				"dweb:/ipfs/QmZjdryiDGUP3b9zFunXksoziVk6hA2ywV337kD5iBm2MK"
+			]
+		},
+		"web3-horse-race-bet/models/user_model.sol": {
+			"keccak256": "0xb8be962685aaa121ad964a833d14719201270ee4c76bc6c242afc6b41ad4dcfb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0617a1917d05dbb8dee31e503f7bcce4cc4baf425474c49b86c69cfb240f6384",
+				"dweb:/ipfs/QmY6TnV77JvqMwBcGZPkgcA8fvqPVYZ7VTvXXhckoD5o1N"
+			]
+		}
+	},
+	"version": 1
+}

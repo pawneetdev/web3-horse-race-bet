@@ -73,7 +73,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"abstracts/i_user_data.sol": "IUserStorage"
+			"web3-horse-race-bet/abstracts/i_user_data.sol": "IUserStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -81,13 +81,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"abstracts/i_user_data.sol": {
+		"web3-horse-race-bet/abstracts/i_user_data.sol": {
 			"keccak256": "0xf3684cbd86e661c07e0d30f22de907a97f7f24fb3d73141071483ca5ccb07449",
 			"license": "MIT",
 			"urls": [
@@ -95,7 +95,7 @@
 				"dweb:/ipfs/QmTNAYxhvHfWWTmPN67M7vWGJPmFgRwA8fHWWkMYp1kJwv"
 			]
 		},
-		"models/user_model.sol": {
+		"web3-horse-race-bet/models/user_model.sol": {
 			"keccak256": "0xb8be962685aaa121ad964a833d14719201270ee4c76bc6c242afc6b41ad4dcfb",
 			"license": "MIT",
 			"urls": [

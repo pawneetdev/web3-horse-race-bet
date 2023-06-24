@@ -31,8 +31,11 @@ abstract contract IHorseRace {
             require(msg.sender == owner, ADD_JOCKEY_ERROR_MESSAGE);
         } else if(stringCompare(methodName, START_HORSE_RACE)) {
             require(msg.sender == owner, START_RACE_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, CANCEL_HORSE_RACE))
-        require(msg.sender == owner, CANCEL_RACE_ERROR_MESSAGE);
+        } else if(stringCompare(methodName, CANCEL_HORSE_RACE)) {
+            require(msg.sender == owner, CANCEL_RACE_ERROR_MESSAGE);
+        } else if (stringCompare(methodName, REFUND_REMOVE_BETS)) {
+            require(msg.sender == owner, REFUND_ERROR_MESSAGE);
+        }
 
         _;
     }
@@ -49,7 +52,7 @@ abstract contract IHorseRace {
     modifier raceCompleted(uint256 raceId) {
         require(
             races[raceId].raceState == RaceState.YET_TO_RACE,
-            RACE_COMPLETED
+            RACE_COMPLETED_ERROR_MESSAGE
         );
 
         _;

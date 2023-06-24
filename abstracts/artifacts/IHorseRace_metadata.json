@@ -6,19 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					}
-				],
-				"name": "cancelHorseRace",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "owner",
 				"outputs": [
@@ -59,12 +46,25 @@
 		"remappings": []
 	},
 	"sources": {
+<<<<<<< HEAD
 		"web3-horse-race-bet/abstracts/i_horse_race.sol": {
 			"keccak256": "0x861bbf93999854bc62a12ecb93b54f5586c8ebedf78af1da7fe8371392c3f329",
+=======
+		"abstracts/i_horse_race.sol": {
+			"keccak256": "0xa6051487fec90f16b593c60f98e9fc1b85dcba0e01e782989945fc4e6252a96a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3f0a47afb2eeb9cac8e7533fee85af8f9914991de8408186e25ab5ae7ef4fa14",
-				"dweb:/ipfs/QmeJ8V9N4adLdQbKF2eEqwXk71NFnByN3mjBseQ5qp4ek4"
+				"bzz-raw://1cd11c5395fa9fe9e54dc245192f61620c5ff11280aa79f92a1af4bba44da4bf",
+				"dweb:/ipfs/QmRoVkbrCLQZfk1R8WE9BFqm8aQgunQKfHFmMCoaXianPC"
+			]
+		},
+		"hardhat/console.sol": {
+			"keccak256": "0x60b0215121bf25612a6739fb2f1ec35f31ee82e4a8216c032c8243d904ab3aa9",
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6e29880d33dd479bb046ba306993d26ccb779a4b1d94a046cb3567f22948bb4d",
+				"dweb:/ipfs/QmfTY1qzPt5C63Wc7y6JqfZr5899NRvXYdCpyLzR5FXQic"
 			]
 		},
 		"web3-horse-race-bet/constants/enum.sol": {
@@ -83,12 +83,21 @@
 				"dweb:/ipfs/QmeJzt15TqwT6MbBdmnT37S2yXmZjy6CbUQF3Yrjtx4Q1Y"
 			]
 		},
+<<<<<<< HEAD
 		"web3-horse-race-bet/models/race_model.sol": {
 			"keccak256": "0x5f2b9164b401b25e396683ab03783b4da9ec658a9c1602c4fab2e52c1bf6f1a9",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://1c14b1a111e52d0e57778f7138a54b447c323a67f228d43e68c8d2b64d829263",
 				"dweb:/ipfs/QmZjdryiDGUP3b9zFunXksoziVk6hA2ywV337kD5iBm2MK"
+=======
+		"models/race_model.sol": {
+			"keccak256": "0xe5b74e708165e5d5b36357418782f15e4738ffff3f8b4ac118e3d34a7dee4b7f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://756f40128467a3eaa96d065a3da1f4fd29ccf98f05a64172354f098b996de3e3",
+				"dweb:/ipfs/QmV6HMeJk4HSzeFoCNzYQ14qN6CQdbQXmR1MeFtvqpLpEB"
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
 			]
 		}
 	},

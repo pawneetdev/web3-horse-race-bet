@@ -49,17 +49,25 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
+<<<<<<< HEAD
 			"cancelHorseRace(uint256)": "83c5a81d",
 			"createUser(string,address)": "f555ffb4",
 			"logInUser(uint256)": "e1cbd1cb",
 			"owner()": "8da5cb5b",
 			"placeBet(uint256,uint256,uint256,uint256)": "fde6adb1"
+=======
+			"createUser(string,address)": "f555ffb4",
+			"getBets(uint256)": "1ccf6955",
+			"logInUser(uint256)": "e1cbd1cb",
+			"owner()": "8da5cb5b"
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
 		}
 	},
 	"abi": [
 		{
 			"inputs": [
 				{
+<<<<<<< HEAD
 					"internalType": "uint256",
 					"name": "raceId",
 					"type": "uint256"
@@ -73,6 +81,8 @@
 		{
 			"inputs": [
 				{
+=======
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
 					"internalType": "string",
 					"name": "name",
 					"type": "string"
@@ -92,6 +102,55 @@
 			"inputs": [
 				{
 					"internalType": "uint256",
+<<<<<<< HEAD
+=======
+					"name": "raceId",
+					"type": "uint256"
+				}
+			],
+			"name": "getBets",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "uint256",
+							"name": "userId",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "raceId",
+							"type": "uint256"
+						},
+						{
+							"internalType": "enum BetType",
+							"name": "betType",
+							"type": "uint8"
+						},
+						{
+							"internalType": "uint256",
+							"name": "amount",
+							"type": "uint256"
+						},
+						{
+							"internalType": "uint256",
+							"name": "horseId",
+							"type": "uint256"
+						}
+					],
+					"internalType": "struct Bet[]",
+					"name": "",
+					"type": "tuple[]"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
 					"name": "userId",
 					"type": "uint256"
 				}
@@ -136,6 +195,7 @@
 			],
 			"stateMutability": "view",
 			"type": "function"
+<<<<<<< HEAD
 		},
 		{
 			"inputs": [
@@ -164,6 +224,8 @@
 			"outputs": [],
 			"stateMutability": "payable",
 			"type": "function"
+=======
+>>>>>>> 6caa0c02c16b3fbbedcb59ef2cc8fecf1a1d0044
 		}
 	]
 }

@@ -21,20 +21,20 @@ contract HorseRaceBetting is IBetting{
         return jockeys;
     }
 
-    function createRace(uint locationId,
+    function createRace(string memory locationId,
         uint[] memory participatingHorses,
         uint[] memory participatingJockeys) public {
         Location location;
-        if(locationId == 0){
+        if(keccak256(bytes(locationId)) == keccak256("northamerica")){
             location = Location.NorthAmerica;
-        }else if(locationId == 1){
+        }else if(keccak256(bytes(locationId)) == keccak256("europe")){
             location = Location.Europe;
-        }else if(locationId == 2){
+        }else if(keccak256(bytes(locationId)) == keccak256("australia")){
             location = Location.Australia;
-        }else if(locationId == 3){
+        }else if(keccak256(bytes(locationId)) == keccak256("asia")){
             location = Location.Asia;
         }
-        return createRace(location, participatingHorses, participatingJockeys);
+        createNewRace(location, participatingHorses, participatingJockeys);
     }
 
     function cancelRace(uint raceId) public {
@@ -42,13 +42,20 @@ contract HorseRaceBetting is IBetting{
         cancelHorseRace(raceId);
     }
 
-    function startRace(uint raceId) public {
-        startHorseRace(raceId);
-        calculateWinnings(raceId);
-        claimWinning(raceId);
+    function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) public payable {
+        BetType newBetType;
+        if(keccak256(bytes(betType)) == keccak256("win")){
+            newBetType = BetType.Win;
+        }else if(keccak256(bytes(betType)) == keccak256("place")){
+            newBetType = BetType.Place;
+        }else if(keccak256(bytes(betType)) == keccak256("show")){
+            newBetType = BetType.Show;
+        }
+        placeBet(newBetType, raceId, userId, msg.value, horseId);
     }
 
-    function viewWinners(uint raceId) public view returns (uint[] memory){
-        return races[raceId].raceResults;
+    function performRace(uint raceId) public {
+        startHorseRace(raceId);
+        verifyBetWinsAndSettleCash(raceId);
     }
 }

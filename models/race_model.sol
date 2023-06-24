@@ -9,5 +9,7 @@ struct Race {
     uint[] participatingHorses;
     uint[] participatingJockeys;
     RaceState raceState;
-    uint256[] raceResults; // horses id in ranking order
+    uint256[] horsesInRankOrder; // horses id in ranking order
+    uint256[] horseRaceCompletionSeconds;
+    uint256 totalBetAmountRecieved;
 }

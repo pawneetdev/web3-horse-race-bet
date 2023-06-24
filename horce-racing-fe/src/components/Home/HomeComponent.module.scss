@@ -1,0 +1,36 @@
+.outer {
+  p {
+    font-family: "DynaPuff", sans-serif;
+  }
+  .wrapper {
+    display: flex;
+    width: 100%;
+    height: min-content;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 6rem;
+    .svgWrapper {
+      flex: none;
+      height: auto;
+      position: relative;
+      width: 100px;
+      z-index: 4;
+    }
+  }
+  .sectionWrapper {
+    display: flex;
+    padding: 10px;
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      max-width: 100%;
+      margin-left: 5px;
+    }
+    img {
+      width: 512px;
+      height: 314px;
+      border-radius: 10%;
+    }
+  }
+}

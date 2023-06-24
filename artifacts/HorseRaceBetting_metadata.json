@@ -51,19 +51,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "cancelHorseRace",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					}
-				],
 				"name": "cancelRace",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -72,9 +59,9 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "string",
 						"name": "locationId",
-						"type": "uint256"
+						"type": "string"
 					},
 					{
 						"internalType": "uint256[]",
@@ -108,6 +95,52 @@
 				"name": "createUser",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "getBets",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "userId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "raceId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "enum BetType",
+								"name": "betType",
+								"type": "uint8"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "horseId",
+								"type": "uint256"
+							}
+						],
+						"internalType": "struct Bet[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -215,6 +248,24 @@
 						"internalType": "uint256",
 						"name": "raceId",
 						"type": "uint256"
+					}
+				],
+				"name": "performRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "betType",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
 					},
 					{
 						"internalType": "uint256",
@@ -225,48 +276,11 @@
 						"internalType": "uint256",
 						"name": "horseId",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "betType",
-						"type": "uint256"
 					}
 				],
-				"name": "placeBet",
+				"name": "placeNewBet",
 				"outputs": [],
 				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					}
-				],
-				"name": "startRace",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					}
-				],
-				"name": "viewWinners",
-				"outputs": [
-					{
-						"internalType": "uint256[]",
-						"name": "",
-						"type": "uint256[]"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -298,19 +312,19 @@
 	},
 	"sources": {
 		"abstracts/i_betting.sol": {
-			"keccak256": "0xb2657622d548f446af5f131dbc86aa4d37342d338e15f2fdb176eb338ff4bf70",
+			"keccak256": "0xd96c1aa75279c305febceb07d537942601e02bb3c225f02bd628bb846b7633f7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1262a7c5e87b578138d976ff5ecab50abbda0a58fc40e97a1f0184430b75f68a",
-				"dweb:/ipfs/QmaBuEVLC2foGKB4pr4Uh6gskNNUMAqGB2pAgKiPXXcAXp"
+				"bzz-raw://ac2bf794aec71e10e80f132c4129c180ccc1b25304daae6a95c5ddf205f4c521",
+				"dweb:/ipfs/QmUve4gzrnSrtwappuP3Jmx7QAa3qAoK5LmL7WJ15iPED9"
 			]
 		},
 		"abstracts/i_horse_race.sol": {
-			"keccak256": "0x861bbf93999854bc62a12ecb93b54f5586c8ebedf78af1da7fe8371392c3f329",
+			"keccak256": "0xa6051487fec90f16b593c60f98e9fc1b85dcba0e01e782989945fc4e6252a96a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3f0a47afb2eeb9cac8e7533fee85af8f9914991de8408186e25ab5ae7ef4fa14",
-				"dweb:/ipfs/QmeJ8V9N4adLdQbKF2eEqwXk71NFnByN3mjBseQ5qp4ek4"
+				"bzz-raw://1cd11c5395fa9fe9e54dc245192f61620c5ff11280aa79f92a1af4bba44da4bf",
+				"dweb:/ipfs/QmRoVkbrCLQZfk1R8WE9BFqm8aQgunQKfHFmMCoaXianPC"
 			]
 		},
 		"abstracts/i_user_data.sol": {
@@ -330,11 +344,11 @@
 			]
 		},
 		"horse-bet.sol": {
-			"keccak256": "0x05adc4ce3db658d4a1b622f8ccd181eca7980810895cf11f110e58f799f701a2",
+			"keccak256": "0x314aba174e533448b8d459edf4f76fe1dd37f9efb463fcc40a1e88a4040abda5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://eae335ccf54a87a85c4b9699213feeeea4dd03fa5d034350c0a7583f35785587",
-				"dweb:/ipfs/QmdSU6pUHgNYGH1HxXeaDyPx8EkBD3v7pM6C1jZKfZFKKY"
+				"bzz-raw://fd50604dfd9898f89a913a98ead566c96c4acdd35292282a62d422df9e740706",
+				"dweb:/ipfs/QmcwRrmv7CV39iffDu7CX6882LE6F8dzBtyzk7bVB4n79G"
 			]
 		},
 		"models/bet_model.sol": {
@@ -354,11 +368,11 @@
 			]
 		},
 		"models/race_model.sol": {
-			"keccak256": "0x34cd9bee2c64b4aea1e2a5defa030da058e407f6376da5a703adaf77fe406fe2",
+			"keccak256": "0xe5b74e708165e5d5b36357418782f15e4738ffff3f8b4ac118e3d34a7dee4b7f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://96bdca1835a01d51cf912b2825830b301c73199925a1da99977af0ba65b0b7a2",
-				"dweb:/ipfs/QmZAURMSBNcoMgkQEMq1nYGCCNCgvasjBL8P54JSTqywyh"
+				"bzz-raw://756f40128467a3eaa96d065a3da1f4fd29ccf98f05a64172354f098b996de3e3",
+				"dweb:/ipfs/QmV6HMeJk4HSzeFoCNzYQ14qN6CQdbQXmR1MeFtvqpLpEB"
 			]
 		},
 		"models/user_model.sol": {

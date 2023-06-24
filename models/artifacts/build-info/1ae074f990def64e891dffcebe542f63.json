@@ -1,0 +1,681 @@
+{
+	"id": "1ae074f990def64e891dffcebe542f63",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.20",
+	"solcLongVersion": "0.8.20+commit.a1b79de6",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"models/bet_model.sol": {
+				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\nimport \"./race_model.sol\";\n\nenum BetType {\n    Win,\n    Place,\n    Show\n}\n\nstruct Bet {\n    uint userId;\n    uint256 raceId;\n    BetType betType;\n    uint256 amount;\n    uint horseId;\n}\n"
+			},
+			"models/race_model.sol": {
+				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\nenum Location {\n    NorthAmerica,\n    Europe,\n    Australia,\n    Asia\n}\n\nenum RaceState {\n    YET_TO_RACE,\n    IN_PROFRESS,\n    COMPLETED,\n    CANCELLED\n}\n\nstruct Race {\n    uint256 raceId;\n    Location location;\n    uint[] participatingHorses;\n    uint[] participatingJockeys;\n    RaceState raceState;\n    uint256[] horsesInRankOrder; // horses id in ranking order\n    uint256[] horseRaceCompletionSeconds;\n    uint256 totalBetAmountRecieved;\n}\n"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": true,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"sources": {
+			"models/bet_model.sol": {
+				"ast": {
+					"absolutePath": "models/bet_model.sol",
+					"exportedSymbols": {
+						"Bet": [
+							18
+						],
+						"BetType": [
+							6
+						],
+						"Location": [
+							25
+						],
+						"Race": [
+							53
+						],
+						"RaceState": [
+							30
+						]
+					},
+					"id": 19,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".10"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "32:24:0"
+						},
+						{
+							"absolutePath": "models/race_model.sol",
+							"file": "./race_model.sol",
+							"id": 2,
+							"nameLocation": "-1:-1:-1",
+							"nodeType": "ImportDirective",
+							"scope": 19,
+							"sourceUnit": 54,
+							"src": "57:26:0",
+							"symbolAliases": [],
+							"unitAlias": ""
+						},
+						{
+							"canonicalName": "BetType",
+							"id": 6,
+							"members": [
+								{
+									"id": 3,
+									"name": "Win",
+									"nameLocation": "104:3:0",
+									"nodeType": "EnumValue",
+									"src": "104:3:0"
+								},
+								{
+									"id": 4,
+									"name": "Place",
+									"nameLocation": "113:5:0",
+									"nodeType": "EnumValue",
+									"src": "113:5:0"
+								},
+								{
+									"id": 5,
+									"name": "Show",
+									"nameLocation": "124:4:0",
+									"nodeType": "EnumValue",
+									"src": "124:4:0"
+								}
+							],
+							"name": "BetType",
+							"nameLocation": "90:7:0",
+							"nodeType": "EnumDefinition",
+							"src": "85:45:0"
+						},
+						{
+							"canonicalName": "Bet",
+							"id": 18,
+							"members": [
+								{
+									"constant": false,
+									"id": 8,
+									"mutability": "mutable",
+									"name": "userId",
+									"nameLocation": "154:6:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 18,
+									"src": "149:11:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 7,
+										"name": "uint",
+										"nodeType": "ElementaryTypeName",
+										"src": "149:4:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 10,
+									"mutability": "mutable",
+									"name": "raceId",
+									"nameLocation": "174:6:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 18,
+									"src": "166:14:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 9,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "166:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 13,
+									"mutability": "mutable",
+									"name": "betType",
+									"nameLocation": "194:7:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 18,
+									"src": "186:15:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_enum$_BetType_$6",
+										"typeString": "enum BetType"
+									},
+									"typeName": {
+										"id": 12,
+										"nodeType": "UserDefinedTypeName",
+										"pathNode": {
+											"id": 11,
+											"name": "BetType",
+											"nameLocations": [
+												"186:7:0"
+											],
+											"nodeType": "IdentifierPath",
+											"referencedDeclaration": 6,
+											"src": "186:7:0"
+										},
+										"referencedDeclaration": 6,
+										"src": "186:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_enum$_BetType_$6",
+											"typeString": "enum BetType"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 15,
+									"mutability": "mutable",
+									"name": "amount",
+									"nameLocation": "215:6:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 18,
+									"src": "207:14:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 14,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "207:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 17,
+									"mutability": "mutable",
+									"name": "horseId",
+									"nameLocation": "232:7:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 18,
+									"src": "227:12:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 16,
+										"name": "uint",
+										"nodeType": "ElementaryTypeName",
+										"src": "227:4:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "Bet",
+							"nameLocation": "139:3:0",
+							"nodeType": "StructDefinition",
+							"scope": 19,
+							"src": "132:110:0",
+							"visibility": "public"
+						}
+					],
+					"src": "32:211:0"
+				},
+				"id": 0
+			},
+			"models/race_model.sol": {
+				"ast": {
+					"absolutePath": "models/race_model.sol",
+					"exportedSymbols": {
+						"Location": [
+							25
+						],
+						"Race": [
+							53
+						],
+						"RaceState": [
+							30
+						]
+					},
+					"id": 54,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 20,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".10"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "32:24:1"
+						},
+						{
+							"canonicalName": "Location",
+							"id": 25,
+							"members": [
+								{
+									"id": 21,
+									"name": "NorthAmerica",
+									"nameLocation": "78:12:1",
+									"nodeType": "EnumValue",
+									"src": "78:12:1"
+								},
+								{
+									"id": 22,
+									"name": "Europe",
+									"nameLocation": "96:6:1",
+									"nodeType": "EnumValue",
+									"src": "96:6:1"
+								},
+								{
+									"id": 23,
+									"name": "Australia",
+									"nameLocation": "108:9:1",
+									"nodeType": "EnumValue",
+									"src": "108:9:1"
+								},
+								{
+									"id": 24,
+									"name": "Asia",
+									"nameLocation": "123:4:1",
+									"nodeType": "EnumValue",
+									"src": "123:4:1"
+								}
+							],
+							"name": "Location",
+							"nameLocation": "63:8:1",
+							"nodeType": "EnumDefinition",
+							"src": "58:71:1"
+						},
+						{
+							"canonicalName": "RaceState",
+							"id": 30,
+							"members": [
+								{
+									"id": 26,
+									"name": "YET_TO_RACE",
+									"nameLocation": "152:11:1",
+									"nodeType": "EnumValue",
+									"src": "152:11:1"
+								},
+								{
+									"id": 27,
+									"name": "IN_PROFRESS",
+									"nameLocation": "169:11:1",
+									"nodeType": "EnumValue",
+									"src": "169:11:1"
+								},
+								{
+									"id": 28,
+									"name": "COMPLETED",
+									"nameLocation": "186:9:1",
+									"nodeType": "EnumValue",
+									"src": "186:9:1"
+								},
+								{
+									"id": 29,
+									"name": "CANCELLED",
+									"nameLocation": "201:9:1",
+									"nodeType": "EnumValue",
+									"src": "201:9:1"
+								}
+							],
+							"name": "RaceState",
+							"nameLocation": "136:9:1",
+							"nodeType": "EnumDefinition",
+							"src": "131:81:1"
+						},
+						{
+							"canonicalName": "Race",
+							"id": 53,
+							"members": [
+								{
+									"constant": false,
+									"id": 32,
+									"mutability": "mutable",
+									"name": "raceId",
+									"nameLocation": "240:6:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "232:14:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 31,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "232:7:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 35,
+									"mutability": "mutable",
+									"name": "location",
+									"nameLocation": "261:8:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "252:17:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_enum$_Location_$25",
+										"typeString": "enum Location"
+									},
+									"typeName": {
+										"id": 34,
+										"nodeType": "UserDefinedTypeName",
+										"pathNode": {
+											"id": 33,
+											"name": "Location",
+											"nameLocations": [
+												"252:8:1"
+											],
+											"nodeType": "IdentifierPath",
+											"referencedDeclaration": 25,
+											"src": "252:8:1"
+										},
+										"referencedDeclaration": 25,
+										"src": "252:8:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_enum$_Location_$25",
+											"typeString": "enum Location"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 38,
+									"mutability": "mutable",
+									"name": "participatingHorses",
+									"nameLocation": "282:19:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "275:26:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 36,
+											"name": "uint",
+											"nodeType": "ElementaryTypeName",
+											"src": "275:4:1",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 37,
+										"nodeType": "ArrayTypeName",
+										"src": "275:6:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 41,
+									"mutability": "mutable",
+									"name": "participatingJockeys",
+									"nameLocation": "314:20:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "307:27:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 39,
+											"name": "uint",
+											"nodeType": "ElementaryTypeName",
+											"src": "307:4:1",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 40,
+										"nodeType": "ArrayTypeName",
+										"src": "307:6:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 44,
+									"mutability": "mutable",
+									"name": "raceState",
+									"nameLocation": "350:9:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "340:19:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_enum$_RaceState_$30",
+										"typeString": "enum RaceState"
+									},
+									"typeName": {
+										"id": 43,
+										"nodeType": "UserDefinedTypeName",
+										"pathNode": {
+											"id": 42,
+											"name": "RaceState",
+											"nameLocations": [
+												"340:9:1"
+											],
+											"nodeType": "IdentifierPath",
+											"referencedDeclaration": 30,
+											"src": "340:9:1"
+										},
+										"referencedDeclaration": 30,
+										"src": "340:9:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_enum$_RaceState_$30",
+											"typeString": "enum RaceState"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 47,
+									"mutability": "mutable",
+									"name": "horsesInRankOrder",
+									"nameLocation": "375:17:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "365:27:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 45,
+											"name": "uint256",
+											"nodeType": "ElementaryTypeName",
+											"src": "365:7:1",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 46,
+										"nodeType": "ArrayTypeName",
+										"src": "365:9:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 50,
+									"mutability": "mutable",
+									"name": "horseRaceCompletionSeconds",
+									"nameLocation": "438:26:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "428:36:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+										"typeString": "uint256[]"
+									},
+									"typeName": {
+										"baseType": {
+											"id": 48,
+											"name": "uint256",
+											"nodeType": "ElementaryTypeName",
+											"src": "428:7:1",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint256",
+												"typeString": "uint256"
+											}
+										},
+										"id": 49,
+										"nodeType": "ArrayTypeName",
+										"src": "428:9:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+											"typeString": "uint256[]"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 52,
+									"mutability": "mutable",
+									"name": "totalBetAmountRecieved",
+									"nameLocation": "478:22:1",
+									"nodeType": "VariableDeclaration",
+									"scope": 53,
+									"src": "470:30:1",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 51,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "470:7:1",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "Race",
+							"nameLocation": "221:4:1",
+							"nodeType": "StructDefinition",
+							"scope": 54,
+							"src": "214:289:1",
+							"visibility": "public"
+						}
+					],
+					"src": "32:472:1"
+				},
+				"id": 1
+			}
+		}
+	}
+}

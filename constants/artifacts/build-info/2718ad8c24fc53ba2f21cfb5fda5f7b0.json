@@ -1,0 +1,151 @@
+{
+	"id": "2718ad8c24fc53ba2f21cfb5fda5f7b0",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.20",
+	"solcLongVersion": "0.8.20+commit.a1b79de6",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"web3-horse-race-bet/constants/enum.sol": {
+				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\nenum Location {\n    NorthAmerica,\n    Europe,\n    Australia,\n    Asia\n}\n\nenum RaceState {\n    YET_TO_RACE,\n    IN_PROFRESS,\n    COMPLETED,\n    CANCELLED\n}"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"sources": {
+			"web3-horse-race-bet/constants/enum.sol": {
+				"ast": {
+					"absolutePath": "web3-horse-race-bet/constants/enum.sol",
+					"exportedSymbols": {
+						"Location": [
+							6
+						],
+						"RaceState": [
+							11
+						]
+					},
+					"id": 12,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".10"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "32:24:0"
+						},
+						{
+							"canonicalName": "Location",
+							"id": 6,
+							"members": [
+								{
+									"id": 2,
+									"name": "NorthAmerica",
+									"nameLocation": "78:12:0",
+									"nodeType": "EnumValue",
+									"src": "78:12:0"
+								},
+								{
+									"id": 3,
+									"name": "Europe",
+									"nameLocation": "96:6:0",
+									"nodeType": "EnumValue",
+									"src": "96:6:0"
+								},
+								{
+									"id": 4,
+									"name": "Australia",
+									"nameLocation": "108:9:0",
+									"nodeType": "EnumValue",
+									"src": "108:9:0"
+								},
+								{
+									"id": 5,
+									"name": "Asia",
+									"nameLocation": "123:4:0",
+									"nodeType": "EnumValue",
+									"src": "123:4:0"
+								}
+							],
+							"name": "Location",
+							"nameLocation": "63:8:0",
+							"nodeType": "EnumDefinition",
+							"src": "58:71:0"
+						},
+						{
+							"canonicalName": "RaceState",
+							"id": 11,
+							"members": [
+								{
+									"id": 7,
+									"name": "YET_TO_RACE",
+									"nameLocation": "152:11:0",
+									"nodeType": "EnumValue",
+									"src": "152:11:0"
+								},
+								{
+									"id": 8,
+									"name": "IN_PROFRESS",
+									"nameLocation": "169:11:0",
+									"nodeType": "EnumValue",
+									"src": "169:11:0"
+								},
+								{
+									"id": 9,
+									"name": "COMPLETED",
+									"nameLocation": "186:9:0",
+									"nodeType": "EnumValue",
+									"src": "186:9:0"
+								},
+								{
+									"id": 10,
+									"name": "CANCELLED",
+									"nameLocation": "201:9:0",
+									"nodeType": "EnumValue",
+									"src": "201:9:0"
+								}
+							],
+							"name": "RaceState",
+							"nameLocation": "136:9:0",
+							"nodeType": "EnumDefinition",
+							"src": "131:81:0"
+						}
+					],
+					"src": "32:180:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

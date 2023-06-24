@@ -253,6 +253,30 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "str1",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "str2",
+						"type": "string"
+					}
+				],
+				"name": "stringCompare",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "raceId",
 						"type": "uint256"
@@ -314,11 +338,11 @@
 			]
 		},
 		"web3-horse-race-bet/abstracts/i_horse_race.sol": {
-			"keccak256": "0x861bbf93999854bc62a12ecb93b54f5586c8ebedf78af1da7fe8371392c3f329",
+			"keccak256": "0x3a01852f29c5951a58ce6cee99b840573b137d9c0e133b7b5793741e55a64b81",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3f0a47afb2eeb9cac8e7533fee85af8f9914991de8408186e25ab5ae7ef4fa14",
-				"dweb:/ipfs/QmeJ8V9N4adLdQbKF2eEqwXk71NFnByN3mjBseQ5qp4ek4"
+				"bzz-raw://d91c777b786f92635dbe4e65326bcd975fed280ef80f1b629c3e9ba0af97e8d6",
+				"dweb:/ipfs/Qma1byEJPRNbtyJ2tG5rjcX74WWxvHd3oGQkP8u1hHeDqX"
 			]
 		},
 		"web3-horse-race-bet/abstracts/i_user_data.sol": {
@@ -327,6 +351,14 @@
 			"urls": [
 				"bzz-raw://2d9fae8a8b99a84ae51600fba780d17e8511ef34ae10b145e464af12fec73782",
 				"dweb:/ipfs/QmTNAYxhvHfWWTmPN67M7vWGJPmFgRwA8fHWWkMYp1kJwv"
+			]
+		},
+		"web3-horse-race-bet/constants/constant.sol": {
+			"keccak256": "0x5a440ae3012491fde8cf5dc2cdcfd30145ec2be86e5a51c7bb765f3cc044a406",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bbfd29b63a00fff25946d0f4cadabb9b2efa34fd763c565d7e89b3095fbb3b05",
+				"dweb:/ipfs/QmfSCSkqkoZnbZLMgTsAZvnqxggEf3uEWTLNUwsK9hnmmZ"
 			]
 		},
 		"web3-horse-race-bet/constants/enum.sol": {

@@ -3,6 +3,7 @@ pragma solidity ^0.8.10;
 import "../models/horse_jockey_model.sol";
 import "../models/race_model.sol";
 import "../constants/constant.sol";
+import "../constants/error_message.sol";
 import "hardhat/console.sol";
 
 abstract contract IHorseRace {
@@ -16,12 +17,50 @@ abstract contract IHorseRace {
     mapping(uint256 => Race) races;
     uint256 racesCount;
 
+    // MODIFIERS
+    modifier minHorses(uint256[] memory participatingHorses) {
+        require(participatingHorses.length >= 2, MIN_HORSES_ERROR_MESSAGE);
+
+        _;
+    }
+
+    modifier onlyOwner(string memory methodName) {
+        if (stringCompare(methodName, ADD_HORSE)) {
+            require(msg.sender == owner, ADD_HORSE_ERROR_MESSAGE);
+        } else if(stringCompare(methodName, ADD_JOCKEY)) {
+            require(msg.sender == owner, ADD_JOCKEY_ERROR_MESSAGE);
+        } else if(stringCompare(methodName, START_HORSE_RACE)) {
+            require(msg.sender == owner, START_RACE_ERROR_MESSAGE);
+        } else if(stringCompare(methodName, CANCEL_HORSE_RACE))
+        require(msg.sender == owner, CANCEL_RACE_ERROR_MESSAGE);
+
+        _;
+    }
+
+    modifier invalidRaceId(uint256 raceId) {
+        require(
+            races[raceId].raceId != 0,
+            INVALID_RACE_ID_ERROR_MESSAGE
+        );
+
+        _;
+    }
+
+    modifier raceCompleted(uint256 raceId) {
+        require(
+            races[raceId].raceState == RaceState.YET_TO_RACE,
+            RACE_COMPLETED
+        );
+
+        _;
+    }
+
+    // FUNCTIONS
     function createNewRace(
         Location location,
         uint256[] memory participatingHorses,
         uint256[] memory participatingJockeys
-    ) internal {
-        require(participatingHorses.length >= 2, "Min 2 horses required to race");
+    ) internal minHorses(participatingHorses) {
         uint256 newRaceId = racesCount + 1;
         uint256[] memory horsesInRankOrder;
         uint256[] memory horseRaceCompletionSeconds;
@@ -41,19 +80,6 @@ abstract contract IHorseRace {
 
     function stringCompare(string memory str1, string memory str2) public pure returns(bool) {
         return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
-    }
-
-    modifier onlyOwner(string memory methodName) {
-        if (stringCompare(methodName, ADD_HORSE)) {
-            require(msg.sender == owner, ADD_HORSE_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, ADD_JOCKEY)) {
-            require(msg.sender == owner, ADD_JOCKEY_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, START_HORSE_RACE)) {
-            require(msg.sender == owner, START_RACE_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, CANCEL_HORSE_RACE))
-        require(msg.sender == owner, CANCEL_RACE_ERROR_MESSAGE);
-
-        _;
     }
 
     function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE_ERROR_MESSAGE) returns (bool) {
@@ -97,12 +123,7 @@ abstract contract IHorseRace {
     }
 
     uint256[] horseRaceCompletionDur;
-    function startHorseRace(uint256 raceId) internal onlyOwner(START_HORSE_RACE) {
-        require(
-            races[raceId].raceId != 0 &&
-                races[raceId].raceState == RaceState.YET_TO_RACE,
-            "Invalid Race Id or Race might be completed"
-        );
+    function startHorseRace(uint256 raceId) internal onlyOwner(START_HORSE_RACE) invalidRaceId(raceId) raceCompleted(raceId) {
         delete horseRaceCompletionDur;
         races[raceId].raceState = RaceState.IN_PROFRESS;
         for (uint256 i = 0; i < races[raceId].participatingHorses.length; i++) {
@@ -113,12 +134,7 @@ abstract contract IHorseRace {
         races[raceId].raceState = RaceState.COMPLETED;
     }
 
-    function cancelHorseRace(uint256 raceId) internal onlyOwner(CANCEL_HORSE_RACE) {
-        require(
-            races[raceId].raceId != 0 &&
-                races[raceId].raceState == RaceState.YET_TO_RACE,
-            "Failed to cancel due to Invalid Race Id or Race might be completed"
-        );
+    function cancelHorseRace(uint256 raceId) internal onlyOwner(CANCEL_HORSE_RACE) invalidRaceId(raceId) raceCompleted(raceId) {
         races[raceId].raceState = RaceState.CANCELLED;
     }
 }

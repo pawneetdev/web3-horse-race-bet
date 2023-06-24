@@ -1,0 +1,111 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint8",
+						"name": "locationId",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingHorses",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingJockeys",
+						"type": "uint256[]"
+					}
+				],
+				"name": "createRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "startHorseRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"i_horse_race.sol": "IHorseRace"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"i_horse_race.sol": {
+			"keccak256": "0xab0fac334f5d35988b6f168d1c589436b2cc29c9f71e3b273fda38b256c6fdcf",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://406b16f6ff5d4c01459d644010da21de0eb43efae4514969da5fa29564e3eb78",
+				"dweb:/ipfs/QmYCb7ViXPbVjrryUuQeSQVEfbz8wQqLYwXciQWZNtJRKs"
+			]
+		},
+		"models/horse_jockey_model.sol": {
+			"keccak256": "0xdefcd13831d664cf93d0640f12a2be0f065ca52db370f9cfc90d0dfd70050120",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://146c34baa770a067680a881d3debfeee140ab9d4f84d0a8d44597cc28663b659",
+				"dweb:/ipfs/QmeJzt15TqwT6MbBdmnT37S2yXmZjy6CbUQF3Yrjtx4Q1Y"
+			]
+		},
+		"models/race_model.sol": {
+			"keccak256": "0x5d71bf356fb5bc788f0bc9d97a30de22988f86e83812290c2e47b304df504c83",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://45c5cd8ea6655e58723582b6c69d007a8133319461b7cc826900b622f29045fd",
+				"dweb:/ipfs/QmXxQGLbRukgnvJ8vdhY3MX6VcA7eQPFejqsHqHKiBQWg3"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,374 @@
+{
+	"compiler": {
+		"version": "0.8.20+commit.a1b79de6"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "horseName",
+						"type": "string"
+					}
+				],
+				"name": "addNewHorse",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "jockeyName",
+						"type": "string"
+					}
+				],
+				"name": "addNewJockey",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "cancelHorseRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "cancelRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "locationId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingHorses",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingJockeys",
+						"type": "uint256[]"
+					}
+				],
+				"name": "createRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "walletAddress",
+						"type": "address"
+					}
+				],
+				"name": "createUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getHorses",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "horseId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "horseName",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Horse[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getJockeys",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "jockeyId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "jockeyName",
+								"type": "string"
+							}
+						],
+						"internalType": "struct Jockey[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "userId",
+						"type": "uint256"
+					}
+				],
+				"name": "logInUser",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "userId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "userWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "name",
+								"type": "string"
+							}
+						],
+						"internalType": "struct User",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "userId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "horseId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betType",
+						"type": "uint256"
+					}
+				],
+				"name": "placeBet",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "startRace",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					}
+				],
+				"name": "viewWinners",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"horse-bet.sol": "HorseRaceBetting"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"abstracts/i_betting.sol": {
+			"keccak256": "0xb2657622d548f446af5f131dbc86aa4d37342d338e15f2fdb176eb338ff4bf70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1262a7c5e87b578138d976ff5ecab50abbda0a58fc40e97a1f0184430b75f68a",
+				"dweb:/ipfs/QmaBuEVLC2foGKB4pr4Uh6gskNNUMAqGB2pAgKiPXXcAXp"
+			]
+		},
+		"abstracts/i_horse_race.sol": {
+			"keccak256": "0x861bbf93999854bc62a12ecb93b54f5586c8ebedf78af1da7fe8371392c3f329",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3f0a47afb2eeb9cac8e7533fee85af8f9914991de8408186e25ab5ae7ef4fa14",
+				"dweb:/ipfs/QmeJ8V9N4adLdQbKF2eEqwXk71NFnByN3mjBseQ5qp4ek4"
+			]
+		},
+		"abstracts/i_user_data.sol": {
+			"keccak256": "0xf3684cbd86e661c07e0d30f22de907a97f7f24fb3d73141071483ca5ccb07449",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2d9fae8a8b99a84ae51600fba780d17e8511ef34ae10b145e464af12fec73782",
+				"dweb:/ipfs/QmTNAYxhvHfWWTmPN67M7vWGJPmFgRwA8fHWWkMYp1kJwv"
+			]
+		},
+		"hardhat/console.sol": {
+			"keccak256": "0x60b0215121bf25612a6739fb2f1ec35f31ee82e4a8216c032c8243d904ab3aa9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6e29880d33dd479bb046ba306993d26ccb779a4b1d94a046cb3567f22948bb4d",
+				"dweb:/ipfs/QmfTY1qzPt5C63Wc7y6JqfZr5899NRvXYdCpyLzR5FXQic"
+			]
+		},
+		"horse-bet.sol": {
+			"keccak256": "0x05adc4ce3db658d4a1b622f8ccd181eca7980810895cf11f110e58f799f701a2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://eae335ccf54a87a85c4b9699213feeeea4dd03fa5d034350c0a7583f35785587",
+				"dweb:/ipfs/QmdSU6pUHgNYGH1HxXeaDyPx8EkBD3v7pM6C1jZKfZFKKY"
+			]
+		},
+		"models/bet_model.sol": {
+			"keccak256": "0xef8cdf08f73f231a16ce0c33db79e9c96fd6e9295c84a01bc56df96bb9d81fef",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2dc12568fd7b3ee363ded88a24e4ee2209ff9a6b381362468f32ec150e0bac53",
+				"dweb:/ipfs/QmU5BsxByVmexewsuyzSyQKDy6jpoSVXEz8TwRn4azkixx"
+			]
+		},
+		"models/horse_jockey_model.sol": {
+			"keccak256": "0xdefcd13831d664cf93d0640f12a2be0f065ca52db370f9cfc90d0dfd70050120",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://146c34baa770a067680a881d3debfeee140ab9d4f84d0a8d44597cc28663b659",
+				"dweb:/ipfs/QmeJzt15TqwT6MbBdmnT37S2yXmZjy6CbUQF3Yrjtx4Q1Y"
+			]
+		},
+		"models/race_model.sol": {
+			"keccak256": "0x34cd9bee2c64b4aea1e2a5defa030da058e407f6376da5a703adaf77fe406fe2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://96bdca1835a01d51cf912b2825830b301c73199925a1da99977af0ba65b0b7a2",
+				"dweb:/ipfs/QmZAURMSBNcoMgkQEMq1nYGCCNCgvasjBL8P54JSTqywyh"
+			]
+		},
+		"models/user_model.sol": {
+			"keccak256": "0xb8be962685aaa121ad964a833d14719201270ee4c76bc6c242afc6b41ad4dcfb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0617a1917d05dbb8dee31e503f7bcce4cc4baf425474c49b86c69cfb240f6384",
+				"dweb:/ipfs/QmY6TnV77JvqMwBcGZPkgcA8fvqPVYZ7VTvXXhckoD5o1N"
+			]
+		}
+	},
+	"version": 1
+}

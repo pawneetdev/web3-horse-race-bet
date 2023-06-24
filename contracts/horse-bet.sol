@@ -1,51 +1,54 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
+import "hardhat/console.sol";
+import "./abstracts/i_betting.sol";
 
-contract HorseRaceBetting {
-    enum Location{
-        NorthAmerica, // default
-        Europe,
-        Australia,
-        Asia
-    }
-    
-    enum BetType {
-        Win,
-        Place,
-        Show
+contract HorseRaceBetting is IBetting{
+
+    function addNewHorse(string memory horseName) public returns (bool){
+        return addHorse(horseName);
     }
 
-    struct Bet {
-        address user;
-        uint256 raceId;
+    function addNewJockey(string memory jockeyName) public returns (bool){
+        return addJockey(jockeyName);
+    }
+
+    function getHorses() public view returns (Horse []memory){
+        return horses;
+    }
+
+    function getJockeys() public view returns (Jockey []memory){
+        return jockeys;
+    }
+
+    function createRace(uint locationId,
+        uint[] memory participatingHorses,
+        uint[] memory participatingJockeys) public {
         Location location;
-        BetType betType;
-        uint256 amount;
-        uint16 horseNumber;
+        if(locationId == 0){
+            location = Location.NorthAmerica;
+        }else if(locationId == 1){
+            location = Location.Europe;
+        }else if(locationId == 2){
+            location = Location.Australia;
+        }else if(locationId == 3){
+            location = Location.Asia;
+        }
+        return createRace(location, participatingHorses, participatingJockeys);
     }
 
-    address payable public raceOrganiser;
-
-    constructor() {
-
+    function cancelRace(uint raceId) public {
+        refundRemoveBets(raceId);
+        cancelHorseRace(raceId);
     }
 
-    function startRace() internal returns (uint16) {
-
+    function startRace(uint raceId) public {
+        startHorseRace(raceId);
+        calculateWinnings(raceId);
+        claimWinning(raceId);
     }
 
-    function cancelRace() internal {
-
-    }
-
-    function placeBet() public payable {
-    }
-
-    function claimWinning() public {
-
-    }
-
-    function calculateWinnings() internal returns (uint256) {
-
+    function viewWinners(uint raceId) public view returns (uint[] memory){
+        return races[raceId].raceResults;
     }
 }

@@ -1,0 +1,207 @@
+{
+	"id": "bd1aba051755319cd3028be8997d00ca",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.20",
+	"solcLongVersion": "0.8.20+commit.a1b79de6",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"models/horse_jockey_model.sol": {
+				"content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\nstruct Horse {\n    uint256 horseId;\n    string horseName;\n}\n\nstruct Jockey {\n    uint256 jockeyId;\n    string jockeyName;\n}\n"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": true,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"sources": {
+			"models/horse_jockey_model.sol": {
+				"ast": {
+					"absolutePath": "models/horse_jockey_model.sol",
+					"exportedSymbols": {
+						"Horse": [
+							6
+						],
+						"Jockey": [
+							11
+						]
+					},
+					"id": 12,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".10"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "32:24:0"
+						},
+						{
+							"canonicalName": "Horse",
+							"id": 6,
+							"members": [
+								{
+									"constant": false,
+									"id": 3,
+									"mutability": "mutable",
+									"name": "horseId",
+									"nameLocation": "85:7:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 6,
+									"src": "77:15:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 2,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "77:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 5,
+									"mutability": "mutable",
+									"name": "horseName",
+									"nameLocation": "105:9:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 6,
+									"src": "98:16:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_string_storage_ptr",
+										"typeString": "string"
+									},
+									"typeName": {
+										"id": 4,
+										"name": "string",
+										"nodeType": "ElementaryTypeName",
+										"src": "98:6:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_string_storage_ptr",
+											"typeString": "string"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "Horse",
+							"nameLocation": "65:5:0",
+							"nodeType": "StructDefinition",
+							"scope": 12,
+							"src": "58:59:0",
+							"visibility": "public"
+						},
+						{
+							"canonicalName": "Jockey",
+							"id": 11,
+							"members": [
+								{
+									"constant": false,
+									"id": 8,
+									"mutability": "mutable",
+									"name": "jockeyId",
+									"nameLocation": "147:8:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 11,
+									"src": "139:16:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 7,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "139:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 10,
+									"mutability": "mutable",
+									"name": "jockeyName",
+									"nameLocation": "168:10:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 11,
+									"src": "161:17:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_string_storage_ptr",
+										"typeString": "string"
+									},
+									"typeName": {
+										"id": 9,
+										"name": "string",
+										"nodeType": "ElementaryTypeName",
+										"src": "161:6:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_string_storage_ptr",
+											"typeString": "string"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "Jockey",
+							"nameLocation": "126:6:0",
+							"nodeType": "StructDefinition",
+							"scope": 12,
+							"src": "119:62:0",
+							"visibility": "public"
+						}
+					],
+					"src": "32:150:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

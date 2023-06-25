@@ -1,10 +1,10 @@
-import { AppBar, Toolbar, Button, Typography, Box } from '@mui/material';
+import { AppBar, Toolbar, Button, Box } from '@mui/material';
 import { useContext } from 'react';
 import WalletContext from "../../store/WalletContext"
 import { useNavigate } from 'react-router';
 
 const Layout = () => {
-  const { isConnected, connectWallet, disconnectWallet, walletAddress } = useContext(WalletContext);
+  const { isConnected, connectWallet, disconnectWallet } = useContext(WalletContext);
   const navigate = useNavigate();
   const handleHomeNavigate = () => {
     navigate('/')
@@ -20,11 +20,9 @@ const Layout = () => {
               {isConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
             </Button>
             <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}
-            {walletAddress && (
-              <Typography variant="subtitle1" style={{ color: 'lightgreen' }}>
-                Wallet Address: {walletAddress}
-              </Typography>
-            )}
+            <Button color="inherit" onClick={() => navigate('/portfolio')}>
+              Portfolio
+            </Button>
           </Toolbar>
         </AppBar>
         

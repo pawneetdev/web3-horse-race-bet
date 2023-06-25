@@ -3,6 +3,7 @@ import BiddingComponent from "./components/BidComponent/BidComponent"
 import HomeComponent from "./components/Home/HomeComponent"
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
+import ProtfolioComponent from "./components/PortfolioComponent/ProtfolioComponent";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         <Route path="/" element={<HomeComponent/>}>
         </Route>
         <Route path="/bid" element={<BiddingComponent/>}>
+        </Route>
+        <Route path="/portfolio" element={<ProtfolioComponent/>}>
         </Route>
       </Routes>
     </div>

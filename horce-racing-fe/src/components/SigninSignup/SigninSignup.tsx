@@ -1,23 +1,58 @@
-import React, { useState, useContext } from 'react';
-import { Button, Container, Grid, TextField } from '@mui/material';
+import React, { useState, useContext, useRef } from 'react';
+import { Button, Container, Grid, TextField, Snackbar, Alert } from '@mui/material';
 import "./SigninSignup.scss"
 import WalletContext from '../../store/WalletContext';
 import { useNavigate } from 'react-router';
+import LoadingPopup from "../LoadingPopup/LoadingPopup";
 
 const SigninSignUpComponent: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState('');
-  const { walletAddress, connectWallet, performSignIn } = useContext(WalletContext);
+  const [error, setError] = useState('');
+  const { walletAddress, connectWallet, performSignIn, contract } = useContext(WalletContext);
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async() => {
     // Handle sign-in logic with walletAddress
-    performSignIn();
-    navigate('/bid');
+    try {
+      const user = await contract.logInUser();
+      const userId = parseInt(user.userId);
+      if(userId !== 0) {
+        performSignIn({ name: user[2], walletAddress: user[1], Id: userId });
+        navigate('/bid');
+      } else {
+        setError('user does not exist, please register!');
+      }
+    } catch(err: any) {
+      setError("transaction rejected!");
+    }
   };
 
-  const handleSignUp = () => {
+  const handleClose = () => {
+    setError("");
+  }
+
+  const handleSignUp = async() => {
     // Handle sign-up logic with walletAddress and name
+    try {
+      const transaction = await contract.createUser(name, walletAddress);
+      setLoading(true);
+      const receipt = await transaction.wait();
+      setLoading(false);
+      if(receipt.status === 1) {
+        const user = await contract.logInUser();
+        const userId = parseInt(user.userId);
+        if(userId !== 0) {
+          performSignIn({ name: user[2], walletAddress: user[1], Id: userId });
+          navigate('/bid');
+        } else {
+          setError('error creating user!');
+        }
+      }
+    } catch(err: any) {
+      setError("transaction rejected!");
+    }
   };
 
   return (
@@ -43,7 +78,7 @@ const SigninSignUpComponent: React.FC = () => {
             value={walletAddress}
             disabled
           />
-          <Button className="btn" variant="contained" color="success" onClick={connectWallet} disabled={walletAddress != ''}>
+          <Button className="btn" variant="contained" color="success" onClick={connectWallet} disabled={walletAddress !== ''}>
             Connect Wallet
           </Button>
         </div>
@@ -59,6 +94,21 @@ const SigninSignUpComponent: React.FC = () => {
           </Button>
         </Grid>
       </Container>
+      <Snackbar open={error !== ""} autoHideDuration={2000} onClose={handleClose} 
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <Alert onClose={handleClose} severity="error"
+          sx={{
+            position: 'relative',
+            '& .MuiAlert-action': {
+              position: 'absolute',
+              top: '8px',
+              right: '8px',
+            },
+          }}>
+          {error}
+        </Alert>
+      </Snackbar>
+      <LoadingPopup loadPopup={isLoading} />
     </div>
   );
 };

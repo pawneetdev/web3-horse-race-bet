@@ -1,37 +1,48 @@
 import React, { createContext, useState } from 'react';
 import { ethers } from 'ethers';
-
+import abi from "../abi.json";
 
 interface WalletContextType {
   walletAddress: string;
   isConnected: boolean;
   connectWallet: () => void;
   disconnectWallet: () => Promise<boolean>;
-  performSignIn: () => void;
-  hasSignedIn: boolean;
+  performSignIn: (user: any) => void;
+  contract: any;
+  user: {
+    name: string,
+    Id: number,
+    walletAddress: string,
+  };
 }
 
 interface WalletContextProps {
   children: React.ReactNode;
 }
 
+const defaultUser = { name: '', Id: 0, walletAddress: '' };
+
 const WalletContext = createContext<WalletContextType>({
   walletAddress: '',
   isConnected: false,
-  hasSignedIn: false,
+  user: defaultUser,
   connectWallet: () => {},
   disconnectWallet: () => Promise.resolve(false),
-  performSignIn: () => {},
+  performSignIn: (user: any) => {},
+  contract: null,
 });
 
 
 export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState('');
   const [isConnected, setIsConnected] = useState(false);
-  const [hasSignedIn, setSignIn] = useState(false);
+  const [user, setUser] = useState(defaultUser);
+  const [contract, setContract] = useState();
 
-  const performSignIn = () => {
-    setSignIn(true);
+  const contractAddress = '0xa3c5Ed13B501C1dB44A286b89bF377c03A5930fF';
+  let signer;
+  const performSignIn = (user: any) => {
+    setUser(user);
   }
   const connectWallet = async () => {
     try {
@@ -40,8 +51,11 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
         const provider = new ethers.providers.Web3Provider((window as any).ethereum)
         const accounts = await provider.send("eth_requestAccounts", []);
         console.log(await provider.getNetwork());
+        signer = provider.getSigner();
+        const ct = new ethers.Contract(contractAddress, abi, signer);
+        setContract(ct as any);
         setIsConnected(true);
-        setWalletAddress(accounts[0])
+        setWalletAddress(accounts[0]);
       }
     } catch (error) {
       console.log('Error connecting to MetaMask:', error);
@@ -52,7 +66,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
     try {
       setIsConnected(false);
       setWalletAddress('')
-      setSignIn(false);
+      setUser(defaultUser);
       return true;
     } catch (error) {
       console.log('Error disconnecting from MetaMask:', error);
@@ -61,7 +75,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   };
 
   return (
-    <WalletContext.Provider value={{walletAddress, isConnected, connectWallet, disconnectWallet, hasSignedIn, performSignIn}}>
+    <WalletContext.Provider value={{walletAddress, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract}}>
       {children}
     </WalletContext.Provider>
   );

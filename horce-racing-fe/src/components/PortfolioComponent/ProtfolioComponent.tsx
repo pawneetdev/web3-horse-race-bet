@@ -5,16 +5,16 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalance';
 import "./ProtfolioComponent.scss";
 
 const PortfolioComponent = () => {
-  const { walletAddress } = useContext(WalletContext);
+  const { user } = useContext(WalletContext);
   return (
     <div className="flex-80">
       <Card>
       <CardContent>
         <AccountBalanceWalletIcon />
         <Typography variant="subtitle1">Wallet Address:</Typography>
-        <Typography variant="body1">{walletAddress}</Typography>
-        <Typography variant="subtitle1">Token Balance:</Typography>
-        <Typography variant="body1">1200</Typography>
+        <Typography variant="body1">{user.walletAddress}</Typography>
+        <Typography variant="subtitle1">Name: {user.name}</Typography>
+        <Typography variant="subtitle1">Id: {user.Id}</Typography>
       </CardContent>
     </Card>
     </div>

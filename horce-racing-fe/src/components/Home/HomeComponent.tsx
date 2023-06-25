@@ -6,9 +6,9 @@ import classes from './HomeComponent.module.scss';
 const HomeComponent = () => {
   const navigate = useNavigate();
   const [scrollToSection, setScrollToSection] = useState(false);
-  const { hasSignedIn } = useContext(WalletContext);
+  const { user } = useContext(WalletContext);
   const bidHandler = () => {
-    if(!hasSignedIn) {
+    if(user.Id === 0) {
       navigate('/login');
     } else {
       navigate('/bid');

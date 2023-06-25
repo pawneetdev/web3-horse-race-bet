@@ -16,7 +16,8 @@ const Layout = () => {
         navigate('/');
       }
     } else {
-      connectWallet();
+      await connectWallet();
+      navigate('/login');
     }
   }
   return(

@@ -1,12 +1,18 @@
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
+import WalletContext from '../../store/WalletContext';
 import classes from './HomeComponent.module.scss';
 const HomeComponent = () => {
   const navigate = useNavigate();
   const [scrollToSection, setScrollToSection] = useState(false);
+  const { hasSignedIn } = useContext(WalletContext);
   const bidHandler = () => {
-    navigate('/bid');
+    if(!hasSignedIn) {
+      navigate('/login');
+    } else {
+      navigate('/bid');
+    }
   }
   useEffect(() => {
     if (scrollToSection) {

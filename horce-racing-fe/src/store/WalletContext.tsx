@@ -1,11 +1,14 @@
 import React, { createContext, useState } from 'react';
 import { ethers } from 'ethers';
 
+
 interface WalletContextType {
   walletAddress: string;
   isConnected: boolean;
   connectWallet: () => void;
-  disconnectWallet: () => void;
+  disconnectWallet: () => Promise<boolean>;
+  performSignIn: () => void;
+  hasSignedIn: boolean;
 }
 
 interface WalletContextProps {
@@ -15,15 +18,21 @@ interface WalletContextProps {
 const WalletContext = createContext<WalletContextType>({
   walletAddress: '',
   isConnected: false,
+  hasSignedIn: false,
   connectWallet: () => {},
-  disconnectWallet: () => {}
+  disconnectWallet: () => Promise.resolve(false),
+  performSignIn: () => {},
 });
 
 
 export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState('');
   const [isConnected, setIsConnected] = useState(false);
+  const [hasSignedIn, setSignIn] = useState(false);
 
+  const performSignIn = () => {
+    setSignIn(true);
+  }
   const connectWallet = async () => {
     try {
       if ((window as any).ethereum) {
@@ -43,13 +52,16 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
     try {
       setIsConnected(false);
       setWalletAddress('')
+      setSignIn(false);
+      return true;
     } catch (error) {
       console.log('Error disconnecting from MetaMask:', error);
     }
+    return false;
   };
 
   return (
-    <WalletContext.Provider value={{walletAddress, isConnected, connectWallet, disconnectWallet}}>
+    <WalletContext.Provider value={{walletAddress, isConnected, connectWallet, disconnectWallet, hasSignedIn, performSignIn}}>
       {children}
     </WalletContext.Provider>
   );

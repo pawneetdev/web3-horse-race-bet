@@ -9,6 +9,16 @@ const Layout = () => {
   const handleHomeNavigate = () => {
     navigate('/')
   }
+  const handleWalletConnection = async() => {
+    if(isConnected) {
+      const result =  await disconnectWallet();
+      if(result) {
+        navigate('/');
+      }
+    } else {
+      connectWallet();
+    }
+  }
   return(
     <div>
       <AppBar position="fixed">
@@ -16,7 +26,7 @@ const Layout = () => {
             <Button color="inherit" onClick={ handleHomeNavigate }>
               Home
             </Button>
-            <Button color="inherit" onClick={isConnected ? disconnectWallet : connectWallet}>
+            <Button color="inherit" onClick={handleWalletConnection}>
               {isConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
             </Button>
             <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}

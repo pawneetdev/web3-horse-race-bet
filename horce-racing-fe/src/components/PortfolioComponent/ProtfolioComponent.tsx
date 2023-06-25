@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import WalletContext from "../../store/WalletContext";
-import { Card, CardContent, Grid, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalance';
 import "./ProtfolioComponent.scss";
 

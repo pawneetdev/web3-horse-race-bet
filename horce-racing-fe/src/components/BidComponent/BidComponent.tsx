@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Card, CardContent, SelectChangeEvent, Tooltip } from '@mui/material';
+import { Button, Card, CardContent, SelectChangeEvent, Tooltip } from '@mui/material'
 import classes from './BidComponent.module.scss';
 import { RaceIntf, RACES } from '../../constants/races';
 import DialogComponent from "../DialogComponent/DialogComponent";

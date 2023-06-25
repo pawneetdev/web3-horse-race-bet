@@ -4,6 +4,8 @@ import "../models/bet_model.sol";
 import "./i_horse_race.sol";
 import "hardhat/console.sol";
 import "./i_user_data.sol";
+import "../constants/constant.sol";
+import "../constants/error_message.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
     // {
@@ -12,6 +14,12 @@ abstract contract IBetting is IHorseRace, IUserStorage {
     //   ]
     // }
     mapping(uint256 => Bet[]) raceBets;
+
+    modifier invalidBetAmount() {
+        require(msg.value > 0, INVALID_BET_AMOUNT_ERROR_MESSAGE);
+
+        _;
+    }
 
     function transferTo(uint256 userId, uint256 amount) internal {
         console.log("------\n");
@@ -27,18 +35,12 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         uint256 userId,
         uint256 amount,
         uint256 horseId
-    ) internal {
-        require(msg.value > 0, "Invalid bet amount");
-        require(
-            races[raceId].raceId != 0 &&
-                races[raceId].raceState == RaceState.YET_TO_RACE,
-            "Failed to cancel due to Invalid Race Id or Race might be completed"
-        );
+    ) internal invalidBetAmount invalidRaceId(raceId) raceCompleted(raceId) {
         if (
             betType == BetType.Show &&
             races[raceId].location != Location.NorthAmerica
         ) {
-            require(false, "Show bets can be only places in North America");
+            require(false, NORTH_AMERICA_SHOW_ERROR_MESSAGE);
         }
         if (
             races[raceId].location == Location.NorthAmerica &&
@@ -47,7 +49,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         ) {
             require(
                 false,
-                "Show bets can be accepted only if horses participating in race greater than or equal to 4"
+                NORTH_AMERICA_SHOW_REQUIREMENT_ERROR_MESSAGE
             );
         }
         if (
@@ -56,7 +58,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         ) {
             require(
                 false,
-                "Place bets can be accepted only if horses participating in race greater than or equal to 3"
+                NORTH_AMERICA_PLACE_REQUIREMENT_ERROR_MESSAGE
             );
         }
         Bet memory newBet = Bet(userId, raceId, betType, amount, horseId);
@@ -67,13 +69,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         return raceBets[raceId];
     }
 
-    function refundRemoveBets(uint256 raceId) internal {
-        require(msg.sender == owner, "Only owner can refund");
-        require(
-            races[raceId].raceId != 0 &&
-                races[raceId].raceState == RaceState.YET_TO_RACE,
-            "Failed to refund due to Invalid Race Id or Race might be completed"
-        );
+    function refundRemoveBets(uint256 raceId) internal onlyOwner(REFUND_REMOVE_BETS) invalidRaceId(raceId) raceCompleted(raceId) {
         for (uint256 i = 0; i < raceBets[raceId].length; i++) {
             transferTo(raceBets[raceId][i].userId, raceBets[raceId][i].amount);
         }

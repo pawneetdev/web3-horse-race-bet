@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
 import "hardhat/console.sol";
-import "./abstracts/i_betting.sol";
+import "../abstracts/i_betting.sol";
 
 contract HorseRaceBetting is IBetting{
 

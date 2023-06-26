@@ -4,19 +4,16 @@ import WalletContext from "../../store/WalletContext"
 import { useNavigate } from 'react-router';
 
 const Layout = () => {
-  const { isConnected, connectWallet, disconnectWallet } = useContext(WalletContext);
+  const { walletAddress, disconnectWallet, user } = useContext(WalletContext);
   const navigate = useNavigate();
   const handleHomeNavigate = () => {
     navigate('/')
   }
-  const handleWalletConnection = async() => {
-    if(isConnected) {
-      const result =  await disconnectWallet();
-      if(result) {
-        navigate('/');
-      }
+  const handleLoginLogout = () => {
+    if(user.Id !== 0) {
+      disconnectWallet();
+      navigate('/');
     } else {
-      await connectWallet();
       navigate('/login');
     }
   }
@@ -27,8 +24,8 @@ const Layout = () => {
             <Button color="inherit" onClick={ handleHomeNavigate }>
               Home
             </Button>
-            <Button color="inherit" onClick={handleWalletConnection}>
-              {isConnected ? 'Disconnect Wallet' : 'Connect Wallet'}
+            <Button color="inherit" onClick={ handleLoginLogout }>
+              { user.Id !== 0 ? 'Logout' : 'Login' }
             </Button>
             <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}
             <Button color="inherit" onClick={() => navigate('/portfolio')}>

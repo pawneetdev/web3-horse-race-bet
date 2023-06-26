@@ -18,6 +18,7 @@ abstract contract IHorseRace {
     Jockey[] jockeys;
     address public owner;
     mapping(uint256 => Race) races;
+    Race[] racesList;
     uint256 racesCount;
 
     // MODIFIERS
@@ -79,9 +80,11 @@ abstract contract IHorseRace {
             RaceState.YET_TO_RACE,
             horsesInRankOrder,
             horseRaceCompletionSeconds,
-            0
+            0,
+            50 * 1000000000000000000
         );
         races[newRaceId] = newRace;
+        racesList.push(newRace);
         racesCount = racesCount + 1;
     }
 

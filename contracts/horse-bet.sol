@@ -5,6 +5,10 @@ import "./abstracts/i_betting.sol";
 
 contract HorseRaceBetting is IBetting{
 
+    constructor(address raceTokenAddress){
+        raceToken = IERC20(raceTokenAddress);
+    }
+
     function addNewHorse(string memory horseName) public returns (bool){
         return addHorse(horseName);
     }
@@ -19,6 +23,14 @@ contract HorseRaceBetting is IBetting{
 
     function getJockeys() public view returns (Jockey []memory){
         return jockeys;
+    }
+
+    function getRaces() public view returns (Race []memory){
+        return racesList;
+    }
+
+    function getRaceBets(uint raceId) public view returns (Bet[] memory){
+        return raceBets[raceId];
     }
 
     function createRace(string memory locationId,
@@ -42,7 +54,7 @@ contract HorseRaceBetting is IBetting{
         cancelHorseRace(raceId);
     }
 
-    function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) public payable {
+    function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) payable public {
         BetType newBetType;
         if(keccak256(bytes(betType)) == keccak256("win")){
             newBetType = BetType.Win;
@@ -51,10 +63,10 @@ contract HorseRaceBetting is IBetting{
         }else if(keccak256(bytes(betType)) == keccak256("show")){
             newBetType = BetType.Show;
         }
-        placeBet(newBetType, raceId, userId, msg.value, horseId);
+        placeBet(newBetType, raceId, userId, horseId);
     }
 
-    function performRace(uint raceId) public {
+    function performRace(uint raceId) public payable {
         startHorseRace(raceId);
         verifyBetWinsAndSettleCash(raceId);
     }

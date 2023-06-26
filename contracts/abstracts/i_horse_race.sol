@@ -4,9 +4,12 @@ import "../../models/horse_jockey_model.sol";
 import "../../models/race_model.sol";
 import "../../constants/constant.sol";
 import "../../constants/error_message.sol";
+import "../../utils/string.sol";
 import "hardhat/console.sol";
 
 abstract contract IHorseRace {
+    using StringUtils for string;
+
     constructor() {
         owner = msg.sender;
     }
@@ -25,15 +28,16 @@ abstract contract IHorseRace {
     }
 
     modifier onlyOwner(string memory methodName) {
-        if (stringCompare(methodName, ADD_HORSE)) {
+        // if (stringCompare(methodName, ADD_HORSE)) {
+        if (methodName.stringCompare(ADD_HORSE)) {
             require(msg.sender == owner, ADD_HORSE_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, ADD_JOCKEY)) {
+        } else if(methodName.stringCompare(ADD_JOCKEY)) {
             require(msg.sender == owner, ADD_JOCKEY_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, START_HORSE_RACE)) {
+        } else if(methodName.stringCompare(START_HORSE_RACE)) {
             require(msg.sender == owner, START_RACE_ERROR_MESSAGE);
-        } else if(stringCompare(methodName, CANCEL_HORSE_RACE)) {
+        } else if(methodName.stringCompare(CANCEL_HORSE_RACE)) {
             require(msg.sender == owner, CANCEL_RACE_ERROR_MESSAGE);
-        } else if (stringCompare(methodName, REFUND_REMOVE_BETS)) {
+        } else if (methodName.stringCompare(REFUND_REMOVE_BETS)) {
             require(msg.sender == owner, REFUND_ERROR_MESSAGE);
         }
 
@@ -81,18 +85,18 @@ abstract contract IHorseRace {
         racesCount = racesCount + 1;
     }
 
-    function stringCompare(string memory str1, string memory str2) public pure returns(bool) {
-        return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
-    }
+    // function stringCompare(string memory str1, string memory str2) public pure returns(bool) {
+    //     return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
+    // }
 
-    function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE_ERROR_MESSAGE) returns (bool) {
+    function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE) returns (bool) {
         uint256 horseId = horses.length + 1;
         Horse memory newHorse = Horse(horseId, string(horseName));
         horses.push(newHorse);
         return true;
     }
 
-    function addJockey(string memory jockeyName) internal onlyOwner(ADD_JOCKEY_ERROR_MESSAGE) returns (bool) {
+    function addJockey(string memory jockeyName) internal onlyOwner(ADD_JOCKEY) returns (bool) {
         uint256 jockeyId = jockeys.length + 1;
         Jockey memory newHorse = Jockey(jockeyId, string(jockeyName));
         jockeys.push(newHorse);

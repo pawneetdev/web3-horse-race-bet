@@ -54,7 +54,7 @@ const BiddingComponent = () => {
   return (
     <div className={classes['outer-container']}>
       <div>
-        <img className={classes['img-wrapper']} src="/assets/race.gif" alt="race gif"/>
+        <img className={classes['img-wrapper']} src="../../../../assets/race.gif" alt="race gif"/>
       </div>
       {races.map((race, index) => {
         return (

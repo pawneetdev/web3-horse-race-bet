@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Container, Grid, TextField, Snackbar, Alert } from '@mui/material';
 import "./SigninSignup.scss"
 import WalletContext from '../../store/WalletContext';
@@ -9,7 +9,7 @@ const SigninSignUpComponent: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [name, setName] = useState('');
   const [error, setError] = useState('');
-  const { walletAddress, connectWallet, performSignIn, contract } = useContext(WalletContext);
+  const { walletAddress, connectWallet, disconnectWallet, performSignIn, contract } = useContext(WalletContext);
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
 
@@ -78,8 +78,8 @@ const SigninSignUpComponent: React.FC = () => {
             value={walletAddress}
             disabled
           />
-          <Button className="btn" variant="contained" color="success" onClick={connectWallet} disabled={walletAddress !== ''}>
-            Connect Wallet
+          <Button className="btn" variant="contained" color={ walletAddress !== '' ? 'error' : 'success' } onClick={ walletAddress !== '' ? disconnectWallet : connectWallet }>
+            {walletAddress !== '' ? 'Disconnect wallet' : 'Connect Wallet'}
           </Button>
         </div>
       </Grid>

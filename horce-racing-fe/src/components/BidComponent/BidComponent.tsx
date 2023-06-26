@@ -5,6 +5,14 @@ import { LOCATIONS, Bets} from '../../constants/races';
 import DialogComponent from "../DialogComponent/DialogComponent";
 import WalletContext, { RaceIntf } from '../../store/WalletContext';
 import LoadingPopup from "../LoadingPopup/LoadingPopup";
+import { styled } from '@mui/system';
+
+const StyledCardContent = styled(CardContent)`
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  padding: 10;
+`;
+
 
 
 export interface BetIntf {
@@ -24,7 +32,6 @@ const BiddingComponent = () => {
   const [horse, setHorse] = useState<string>('');
   const [dialogData, setDialogData] = useState<BetIntf>({} as BetIntf);
   const [isLoading, setLoading] = useState(false);
-
 
   const handleBidButtonClick = (race: RaceIntf) => {
     const dialog: BetIntf = {
@@ -104,6 +111,19 @@ const BiddingComponent = () => {
     // Close the dialog
   };
 
+  const getImageUrl = (location: number) => {
+    switch(location) {
+      case 0:
+        return 'https://images.squarespace-cdn.com/content/v1/58c9c6e69f74567f6f50dfba/1493077259677-X4833RH6DP9870MKHOAN/image-asset.jpeg?format=2500w';
+      case 1:
+        return 'https://cdn-attachments.timesofmalta.com/e09afadb61e66fceaf59788e45471a92811debd8-1634556074-dc82dcfb-1920x1280.jpg';
+      case 2:
+        return 'https://cdn.onestopadventures.com.au/wp-content/uploads/Flemington-horses.jpg';
+      case 3:
+        return 'https://www.ft.com/__origami/service/image/v2/images/raw/https://d1e00ek4ebabms.cloudfront.net/production/21ce64b5-9745-4bff-aac5-9e105219aa81.jpg?source=next&fit=scale-down&quality=highest&width=1920&dpr=2';
+    }
+  }
+
   return (
     <div className={classes['outer-container']}>
       <div>
@@ -112,9 +132,16 @@ const BiddingComponent = () => {
       {races.map((race, index) => {
         const loc = LOCATIONS[race.loacationId];
         return (
-          <Card key={race.raceId} className={`${classes.wrapper}`}>
-            <CardContent>
-              <h2>{ loc.title }</h2>
+          <Card key={race.raceId} className={`${classes.wrapper}`}
+            sx={{
+              backgroundImage: `url(${getImageUrl(race.loacationId)})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              color: '#ffffff',
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+            }}>
+            <StyledCardContent>
+              <h2 style={{margin: 0}}>{ loc.title }</h2>
               <p style={{ fontFamily: "DynaPuff" }}>{loc.description}</p>
               <Tooltip title="Should connect to wallet to place Bid" open={isToolTip && index === currentCard}>
                 <span onMouseOver={(event) => handleMouseOver(event, index)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>
@@ -123,7 +150,7 @@ const BiddingComponent = () => {
                   </Button>
                 </span>
               </Tooltip>
-            </CardContent>
+            </StyledCardContent>
           </Card>
         )
       })}

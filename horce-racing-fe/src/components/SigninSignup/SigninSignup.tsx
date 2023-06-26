@@ -36,7 +36,7 @@ const SigninSignUpComponent: React.FC = () => {
   const handleSignUp = async() => {
     // Handle sign-up logic with walletAddress and name
     try {
-      const transaction = await contract.createUser(name, walletAddress);
+      const transaction = await contract.createUser(name);
       setLoading(true);
       const receipt = await transaction.wait();
       setLoading(false);

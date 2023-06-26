@@ -79,11 +79,6 @@
 				"internalType": "string",
 				"name": "name",
 				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "walletAddress",
-				"type": "address"
 			}
 		],
 		"name": "createUser",
@@ -124,7 +119,7 @@
 		],
 		"name": "performRace",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -158,48 +153,13 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "raceId",
-				"type": "uint256"
+				"internalType": "address",
+				"name": "raceTokenAddress",
+				"type": "address"
 			}
 		],
-		"name": "getBets",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "userId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "raceId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "enum BetType",
-						"name": "betType",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "horseId",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct Bet[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	},
 	{
 		"inputs": [],
@@ -252,6 +212,117 @@
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "raceId",
+				"type": "uint256"
+			}
+		],
+		"name": "getRaceBets",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "userId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum BetType",
+						"name": "betType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "horseId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "winningPrize",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Bet[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getRaces",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "raceId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Location",
+						"name": "location",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingHorses",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "participatingJockeys",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "enum RaceState",
+						"name": "raceState",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "horsesInRankOrder",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "horseRaceCompletionSeconds",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "totalBetAmountRecieved",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "betAmount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Race[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "logInUser",
 		"outputs": [
@@ -292,30 +363,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "str1",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "str2",
-				"type": "string"
-			}
-		],
-		"name": "stringCompare",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "pure",
 		"type": "function"
 	}
 ]

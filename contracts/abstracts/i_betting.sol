@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
-import "../models/bet_model.sol";
+import "../../models/bet_model.sol";
 import "./i_horse_race.sol";
 import "hardhat/console.sol";
 import "./i_user_data.sol";
-import "../constants/constant.sol";
-import "../constants/error_message.sol";
+import "../../constants/constant.sol";
+import "../../constants/error_message.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
     // {

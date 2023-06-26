@@ -5,7 +5,7 @@ import abi from "../abi.json";
 interface WalletContextType {
   walletAddress: string;
   isConnected: boolean;
-  connectWallet: () => void;
+  connectWallet: (contractAddress: string) => void;
   disconnectWallet: () => Promise<boolean>;
   performSignIn: (user: any) => void;
   contract: any;
@@ -47,7 +47,6 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   const [contract, setContract] = useState();
   const [races, setRaces] = useState<RaceIntf[]>([]);
 
-  const contractAddress = '0x75e2Fea3B07562Df37F6551e6dDD158339099409';
   let signer;
 
   const getHorses = async() => {
@@ -86,7 +85,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
     const horses = await getHorses();
     await getRaces(horses);
   }
-  const connectWallet = async () => {
+  const connectWallet = async (contractAddress: string) => {
     try {
       if ((window as any).ethereum) {
         // Request access to the user's MetaMask account

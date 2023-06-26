@@ -6,6 +6,8 @@ import "hardhat/console.sol";
 import "./i_user_data.sol";
 import "../../constants/constant.sol";
 import "../../constants/error_message.sol";
+// import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
     // {
@@ -14,28 +16,27 @@ abstract contract IBetting is IHorseRace, IUserStorage {
     //   ]
     // }
     mapping(uint256 => Bet[]) raceBets;
+    IERC20 raceToken;
 
-    modifier invalidBetAmount() {
-        require(msg.value > 0, INVALID_BET_AMOUNT_ERROR_MESSAGE);
+    modifier invalidBetAmount(uint userBalance, uint amountRequired) {
+        require(amountRequired <= userBalance, INVALID_BET_AMOUNT_ERROR_MESSAGE);
 
         _;
     }
 
     function transferTo(uint256 userId, uint256 amount) internal {
-        console.log("------\n");
-        console.log("%s", userId);
-        console.log("%s", amount);
-        address userAdd = usersData[userId].userWalletAddress;
-        payable(userAdd).transfer(amount);
+        address to = usersData[userId].userWalletAddress;
+        uint256 erc20balance = raceToken.balanceOf(address(this));
+        require(amount <= erc20balance, "balance is low");
+        raceToken.transferFrom(address(this), to, amount);
     }
 
     function placeBet(
         BetType betType,
         uint256 raceId,
         uint256 userId,
-        uint256 amount,
         uint256 horseId
-    ) internal invalidBetAmount invalidRaceId(raceId) raceCompleted(raceId) {
+    ) internal invalidBetAmount(raceToken.balanceOf(msg.sender), races[raceId].betAmount) invalidRaceId(raceId) raceCompleted(raceId) {
         if (
             betType == BetType.Show &&
             races[raceId].location != Location.NorthAmerica
@@ -61,12 +62,10 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                 NORTH_AMERICA_PLACE_REQUIREMENT_ERROR_MESSAGE
             );
         }
-        Bet memory newBet = Bet(userId, raceId, betType, amount, horseId);
+        raceToken.transferFrom(msg.sender, address(this), races[raceId].betAmount);
+        Bet memory newBet = Bet(userId, raceId, betType, races[raceId].betAmount, horseId, 0);
         raceBets[raceId].push(newBet);
-    }
-
-    function getBets(uint256 raceId) public view returns (Bet[] memory) {
-        return raceBets[raceId];
+        races[raceId].totalBetAmountRecieved = races[raceId].totalBetAmountRecieved + races[raceId].betAmount;
     }
 
     function refundRemoveBets(uint256 raceId) internal onlyOwner(REFUND_REMOVE_BETS) invalidRaceId(raceId) raceCompleted(raceId) {
@@ -102,25 +101,35 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             showBetCreditProportion = 0;
         }
 
-        uint totalBetAmount = races[raceId].totalBetAmountRecieved * (90/uint(100));
+        uint totalBetAmount = races[raceId].totalBetAmountRecieved * ((9/10)*10);
+        console.log("totalBetAmountRecieved %s",races[raceId].totalBetAmountRecieved);
+        console.log("totalBetAmount %s",totalBetAmount);
 
         if (winBets > 0) {
             winBetCreditProportion =
                 ((winBetCreditProportion / uint256(100)) *
                     totalBetAmount) /
                 uint256(winBets);
+            winBetCreditProportion = ((winBetCreditProportion/uint(100))*totalBetAmount)/uint(winBets);
+            console.log("winBetCreditProportion %s",winBetCreditProportion);
+        }else{
+            winBetCreditProportion = 0;
         }
         if (placeBets > 0) {
             placeBetCreditProportion =
                 ((placeBetCreditProportion / uint256(100)) *
                     totalBetAmount) /
                 uint256(placeBets);
+        }else{
+            placeBetCreditProportion = 0;
         }
         if (showBets > 0) {
             showBetCreditProportion =
                 ((showBetCreditProportion / uint256(100)) *
                     totalBetAmount) /
                 uint256(showBets);
+        }else{
+            showBetCreditProportion = 0;
         }
 
         for (uint256 i = 0; i < bets.length; i++) {
@@ -134,12 +143,14 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             if (bets[i].betType == BetType.Win) {
                 if (pos == 0) {
                     transferTo(bets[i].userId, winBetCreditProportion);
+                    bets[i].winningPrize = showBetCreditProportion;
                 }
             }
             if (bets[i].betType == BetType.Place) {
                 if (races[raceId].location == Location.NorthAmerica) {
                     if (pos <= 1) {
                         transferTo(bets[i].userId, placeBetCreditProportion);
+                        bets[i].winningPrize = showBetCreditProportion;
                     }
                 } else {
                     if (races[raceId].participatingHorses.length <= 7) {
@@ -148,6 +159,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                                 bets[i].userId,
                                 placeBetCreditProportion
                             );
+                            bets[i].winningPrize = showBetCreditProportion;
                         }
                     } else if (
                         races[raceId].participatingHorses.length > 7 &&
@@ -158,6 +170,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                                 bets[i].userId,
                                 placeBetCreditProportion
                             );
+                            bets[i].winningPrize = showBetCreditProportion;
                         }
                     } else {
                         if (pos <= 4) {
@@ -165,6 +178,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                                 bets[i].userId,
                                 placeBetCreditProportion
                             );
+                            bets[i].winningPrize = showBetCreditProportion;
                         }
                     }
                 }
@@ -172,6 +186,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             if (bets[i].betType == BetType.Show) {
                 if (pos <= 2) {
                     transferTo(bets[i].userId, showBetCreditProportion);
+                    bets[i].winningPrize = showBetCreditProportion;
                 }
             }
         }

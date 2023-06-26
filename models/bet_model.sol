@@ -14,4 +14,5 @@ struct Bet {
     BetType betType;
     uint256 amount;
     uint horseId;
+    uint winningPrize;
 }

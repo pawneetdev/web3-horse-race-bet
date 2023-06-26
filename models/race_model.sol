@@ -12,4 +12,5 @@ struct Race {
     uint256[] horsesInRankOrder; // horses id in ranking order
     uint256[] horseRaceCompletionSeconds;
     uint256 totalBetAmountRecieved;
+    uint256 betAmount;
 }

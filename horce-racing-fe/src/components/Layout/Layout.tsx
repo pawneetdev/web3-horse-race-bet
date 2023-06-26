@@ -4,7 +4,7 @@ import WalletContext from "../../store/WalletContext"
 import { useNavigate } from 'react-router';
 
 const Layout = () => {
-  const { walletAddress, disconnectWallet, user } = useContext(WalletContext);
+  const { disconnectWallet, user } = useContext(WalletContext);
   const navigate = useNavigate();
   const handleHomeNavigate = () => {
     navigate('/')

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Container, Grid, TextField, Snackbar, Alert } from '@mui/material';
 import "./SigninSignup.scss"
 import WalletContext from '../../store/WalletContext';

@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { BetIntf } from '../BidComponent/BidComponent';
 
 interface BidDialogProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface BidDialogProps {
   onBidTypeChange: (event: SelectChangeEvent<{ value: any }>) => void;
   onHorseChange: (event: SelectChangeEvent<{ value: any }>) => void;
   onBidSubmit: () => void;
+  dialogData: BetIntf;
 }
 
 const DialogComponent: React.FC<BidDialogProps> = function ({
@@ -17,7 +19,8 @@ const DialogComponent: React.FC<BidDialogProps> = function ({
   horse,
   onBidTypeChange,
   onHorseChange,
-  onBidSubmit
+  onBidSubmit,
+  dialogData
 }) {
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
@@ -30,9 +33,9 @@ const DialogComponent: React.FC<BidDialogProps> = function ({
               value={bidType as any}
               onChange={onBidTypeChange}
             >
-              <MenuItem value="straight">Straight</MenuItem>
-              <MenuItem value="place">Place</MenuItem>
-              <MenuItem value="show">Show</MenuItem>
+              { dialogData?.betTypes?.map((bet) => {
+                  return (<MenuItem key={bet} value={bet}>{bet}</MenuItem>)
+              }) }
             </Select>
           </FormControl>
           <FormControl fullWidth>
@@ -42,9 +45,11 @@ const DialogComponent: React.FC<BidDialogProps> = function ({
               value={horse as any}
               onChange={onHorseChange}
             >
-              <MenuItem value="Horse1">Horse1</MenuItem>
-              <MenuItem value="Horse2">Horse2</MenuItem>
-              <MenuItem value="Horse3">Horse3</MenuItem>
+              { dialogData?.horses?.map((horse) => {
+                return (
+                  <MenuItem key={ horse.name } value={horse.id}>{horse.name}</MenuItem>
+                )
+              }) }
             </Select>
           </FormControl>
         </DialogContent>

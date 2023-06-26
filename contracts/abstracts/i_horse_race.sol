@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.10;
-import "../models/horse_jockey_model.sol";
-import "../models/race_model.sol";
-import "../constants/constant.sol";
-import "../constants/error_message.sol";
+import "../../models/horse_jockey_model.sol";
+import "../../models/race_model.sol";
+import "../../constants/constant.sol";
+import "../../constants/error_message.sol";
 import "hardhat/console.sol";
 
 abstract contract IHorseRace {

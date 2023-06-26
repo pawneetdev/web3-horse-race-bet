@@ -1,0 +1,18 @@
+.wrapper {
+  margin-top: 2rem;
+  :first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .wallet-flex {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .btn {
+      width: 12rem;
+      height: 2rem;
+      font-size: 10px;
+    }
+  }
+}

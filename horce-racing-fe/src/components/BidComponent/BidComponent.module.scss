@@ -1,0 +1,28 @@
+.outer-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  .wrapper {
+    width: 50%;
+    height: 40%;
+    margin: 10px;
+    &:hover {
+      transform: scale(1);
+      box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.3);
+    }
+  }
+  .img-wrapper {
+    width: 200px;
+    position: absolute;
+    animation: slide 8s linear infinite;
+  }
+  @keyframes slide {
+    0% { left: 0; top: 62px; }
+    100% { left: 100%; top: 62px; }
+  }
+}
+.outer-container:nth-child(2) {
+  margin-top: 120px;
+}

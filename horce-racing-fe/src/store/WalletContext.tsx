@@ -1,13 +1,13 @@
 import React, { createContext, useState } from 'react';
 import { ethers } from 'ethers';
 import abi from "../abi.json";
-
 interface WalletContextType {
   walletAddress: string;
   isConnected: boolean;
   connectWallet: (contractAddress: string) => void;
   disconnectWallet: () => Promise<boolean>;
   performSignIn: (user: any) => void;
+  signer: any;
   contract: any;
   user: {
     name: string,
@@ -37,6 +37,7 @@ const WalletContext = createContext<WalletContextType>({
   performSignIn: (user: any) => {},
   contract: null,
   races: [],
+  signer: null,
 });
 
 
@@ -46,8 +47,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   const [user, setUser] = useState(defaultUser);
   const [contract, setContract] = useState();
   const [races, setRaces] = useState<RaceIntf[]>([]);
-
-  let signer;
+  const [signer, setSigner] = useState();
 
   const getHorses = async() => {
     const horses =  await (contract as any).getHorses();
@@ -92,7 +92,8 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
         const provider = new ethers.providers.Web3Provider((window as any).ethereum)
         const accounts = await provider.send("eth_requestAccounts", []);
         console.log(await provider.getNetwork());
-        signer = provider.getSigner();
+        const signer = provider.getSigner();
+        setSigner(signer as any)
         const ct = new ethers.Contract(contractAddress, abi, signer);
         setContract(ct as any);
         setIsConnected(true);
@@ -116,7 +117,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   };
 
   return (
-    <WalletContext.Provider value={{walletAddress, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
+    <WalletContext.Provider value={{walletAddress, signer, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
       {children}
     </WalletContext.Provider>
   );

@@ -8,11 +8,7 @@ import "../../constants/constant.sol";
 import "../../constants/error_message.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
-    // {
-    //   "raceId": [
-    //      Bet
-    //   ]
-    // }
+
     mapping(uint256 => Bet[]) raceBets;
 
     modifier invalidBetAmount() {

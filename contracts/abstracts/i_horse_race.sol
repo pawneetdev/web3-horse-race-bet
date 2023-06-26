@@ -85,10 +85,6 @@ abstract contract IHorseRace {
         racesCount = racesCount + 1;
     }
 
-    // function stringCompare(string memory str1, string memory str2) public pure returns(bool) {
-    //     return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
-    // }
-
     function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE) returns (bool) {
         uint256 horseId = horses.length + 1;
         Horse memory newHorse = Horse(horseId, string(horseName));

@@ -44,9 +44,7 @@ const BiddingComponent = () => {
     const listenToFinishEvent = () => {
       contract.on('RaceFinished', (...args: any[]) => {
         // Handle the event here
-        console.log('Race finished:', args);
-        const raceId = parseInt(args[1]);
-        setFinishedRace(raceId);
+        refreshRaces();
       });
       contract.on('RaceCreated', (...args: any[]) => {
         refreshRaces();

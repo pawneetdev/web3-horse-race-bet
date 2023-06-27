@@ -183,19 +183,19 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         for (uint256 i = 0; i < winBets.length; i++) {
             awardWiningPrize(
                 winBetCreditProportion,
-                showBets[i].userId,
+                winBets[i].userId,
                 raceId,
-                showBets[i].betType,
-                showBets[i].horseId
+                winBets[i].betType,
+                winBets[i].horseId
             );
         }
         for (uint256 i = 0; i < placeBets.length; i++) {
             awardWiningPrize(
                 placeBetCreditProportion,
-                showBets[i].userId,
+                placeBets[i].userId,
                 raceId,
-                showBets[i].betType,
-                showBets[i].horseId
+                placeBets[i].betType,
+                placeBets[i].horseId
             );
         }
         for (uint256 i = 0; i < showBets.length; i++) {
@@ -220,7 +220,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             if (
                 raceBets[raceId][i].userId == userId &&
                 raceBets[raceId][i].betType == betType &&
-                raceBets[raceId][i].horseId == horseId
+                raceBets[raceId][i].horseId == horseId && raceBets[raceId][i].winningPrize == 0
             ) {
                 transferTo(userId, prizeAmount);
                 raceBets[raceId][i].winningPrize = prizeAmount;

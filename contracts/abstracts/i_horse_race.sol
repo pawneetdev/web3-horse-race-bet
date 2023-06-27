@@ -141,17 +141,24 @@ abstract contract IHorseRace {
     function startHorseRace(uint256 raceId) internal onlyOwner(START_HORSE_RACE) invalidRaceId(raceId) raceCompleted(raceId) {
         delete horseRaceCompletionDur;
         races[raceId].raceState = RaceState.IN_PROFRESS;
+        racesList[raceId-1].raceState = RaceState.IN_PROFRESS;
         for (uint256 i = 0; i < races[raceId].participatingHorses.length; i++) {
             horseRaceCompletionDur.push(generateRandomNumber());
         }
         races[raceId].horseRaceCompletionSeconds = horseRaceCompletionDur;
+        racesList[raceId-1].horseRaceCompletionSeconds = horseRaceCompletionDur;
+
         races[raceId].horsesInRankOrder = sortAscending(horseRaceCompletionDur, races[raceId].participatingHorses);
+        racesList[raceId-1].horsesInRankOrder = races[raceId].horsesInRankOrder;
+
         races[raceId].raceState = RaceState.COMPLETED;
+        racesList[raceId-1].raceState = RaceState.COMPLETED;
         emit RaceStarted(msg.sender, raceId, "race started");
     }
 
     function cancelHorseRace(uint256 raceId) internal onlyOwner(CANCEL_HORSE_RACE) invalidRaceId(raceId) raceCompleted(raceId) {
         races[raceId].raceState = RaceState.CANCELLED;
+        racesList[raceId-1].raceState = RaceState.CANCELLED;
         emit RaceCancelled(msg.sender, raceId, "race has been cancelled");
     }
 }

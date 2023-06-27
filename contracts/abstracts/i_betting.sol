@@ -2,11 +2,11 @@
 pragma solidity ^0.8.10;
 import "../../models/bet_model.sol";
 import "./i_horse_race.sol";
-import "hardhat/console.sol";
 import "./i_user_data.sol";
 import "../../constants/constant.sol";
 import "../../constants/error_message.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "hardhat/console.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
 
@@ -84,6 +84,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         races[raceId].totalBetAmountRecieved =
             races[raceId].totalBetAmountRecieved +
             races[raceId].betAmount;
+        racesList[raceId - 1].totalBetAmountRecieved = races[raceId].totalBetAmountRecieved;
         emit BetReceived(msg.sender, betType, raceId, userId, horseId, races[raceId].betAmount);
     }
 

@@ -12,7 +12,7 @@ abstract contract IHorseRace {
 
     event HorseAdded(address indexed sender, string message);
     event JockeyAdded(address indexed sender, string message);
-    event RaceCreated(address indexed sender, string message);
+    event RaceCreated(address indexed sender, uint raceId, string message);
     event RaceStarted(address indexed sender, uint raceId, string message);
     event RaceCancelled(address indexed sender, uint raceId, string message);
 
@@ -92,7 +92,7 @@ abstract contract IHorseRace {
         races[newRaceId] = newRace;
         racesList.push(newRace);
         racesCount = racesCount + 1;
-        emit RaceCreated(msg.sender, "race has been created");
+        emit RaceCreated(msg.sender, newRaceId, "race has been created");
     }
 
     function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE) returns (bool) {

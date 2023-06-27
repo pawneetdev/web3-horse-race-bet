@@ -2,17 +2,18 @@
 pragma solidity ^0.8.10;
 import "../../models/bet_model.sol";
 import "./i_horse_race.sol";
-import "hardhat/console.sol";
 import "./i_user_data.sol";
 import "../../constants/constant.sol";
 import "../../constants/error_message.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "hardhat/console.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
 
-    event BetReceived(address indexed sender, string betType, uint raceId, uint userId, uint horseId);
+    event BetReceived(address indexed sender, BetType betType, uint raceId, uint userId, uint horseId, uint amount);
     event BetRefunded(address indexed sender, uint raceId, uint userId, uint amount, string message);
-    event RaceFinished(address indexed sender, BetType betType, uint raceId, uint userId, uint horseId, uint256 proportion, string message);
+    event WinningBets(address indexed sender, BetType betType, uint raceId, uint userId, uint horseId, uint256 proportion, string message);
+    event RaceFinished(address indexed sender, uint raceId, string message);
 
     mapping(uint256 => Bet[]) raceBets;
     IERC20 raceToken;
@@ -83,6 +84,8 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         races[raceId].totalBetAmountRecieved =
             races[raceId].totalBetAmountRecieved +
             races[raceId].betAmount;
+        racesList[raceId - 1].totalBetAmountRecieved = races[raceId].totalBetAmountRecieved;
+        emit BetReceived(msg.sender, betType, raceId, userId, horseId, races[raceId].betAmount);
     }
 
     function refundRemoveBets(uint256 raceId)
@@ -189,7 +192,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                 winBets[i].betType,
                 winBets[i].horseId
             );
-            emit RaceFinished(msg.sender,showBets[i].betType, raceId, winBets[i].userId, winBets[i].horseId, winBetCreditProportion, "race is finished");
+            emit WinningBets(msg.sender, winBets[i].betType, raceId, winBets[i].userId, winBets[i].horseId, winBetCreditProportion, "race winners");
         }
         for (uint256 i = 0; i < placeBets.length; i++) {
             awardWiningPrize(
@@ -199,7 +202,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                 placeBets[i].betType,
                 placeBets[i].horseId
             );
-            emit RaceFinished(msg.sender, placeBets[i].betType, raceId, placeBets[i].userId, placeBets[i].horseId, placeBetCreditProportion, "race is finished");
+            emit WinningBets(msg.sender, placeBets[i].betType, raceId, placeBets[i].userId, placeBets[i].horseId, placeBetCreditProportion, "race winners");
         }
         for (uint256 i = 0; i < showBets.length; i++) {
             awardWiningPrize(
@@ -209,8 +212,9 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                 showBets[i].betType,
                 showBets[i].horseId
             );
-            emit RaceFinished(msg.sender,showBets[i].betType, raceId, showBets[i].userId, showBets[i].horseId, showBetCreditProportion, "race is finished");
+            emit WinningBets(msg.sender, showBets[i].betType, raceId, showBets[i].userId, showBets[i].horseId, showBetCreditProportion, "race winners");
         }
+        emit RaceFinished(msg.sender, raceId, "race is finished");
     }
 
     function awardWiningPrize(
@@ -219,7 +223,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
         uint256 raceId,
         BetType betType,
         uint256 horseId
-    ) internal {
+    ) internal  {
         for (uint256 i = 0; i < raceBets[raceId].length; i++) {
             if (
                 raceBets[raceId][i].userId == userId &&

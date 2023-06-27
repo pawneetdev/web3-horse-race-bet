@@ -28,9 +28,9 @@ const Layout = () => {
               Bid
             </Button>}
             <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}
-            <Button color="inherit" onClick={() => navigate('/portfolio')}>
+            {user.Id !== 0 && <Button color="inherit" onClick={() => navigate('/portfolio')}>
               Portfolio
-            </Button>
+            </Button>}
             <Button color="inherit" onClick={ handleLoginLogout }>
               { user.Id !== 0 ? 'Logout' : 'Login' }
             </Button>

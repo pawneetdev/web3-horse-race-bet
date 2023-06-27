@@ -5,26 +5,13 @@ import "./abstracts/i_betting.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 contract HorseRaceBetting is IBetting{
 
-    event HorseAdded(address indexed sender, string message);
-    event JockeyAdded(address indexed sender, string message);
-    event RaceCreated(address indexed sender, string message);
-    event RaceStarted(address indexed sender, uint raceId, string message);
-    event RaceCancelled(address indexed sender, uint raceId, string message);
-    event BetReceived(address indexed sender, string betType, uint raceId, uint userId, uint horseId);
-
     function addNewHorse(string memory horseName) public returns (bool){
         bool isHorseAdded = addHorse(horseName);
-        if(isHorseAdded) {
-            emit HorseAdded(msg.sender, string.concat(horseName, " horse has been added"));
-        }
         return isHorseAdded;
     }
 
     function addNewJockey(string memory jockeyName) public returns (bool){
         bool isJockeyAdded = addJockey(jockeyName);
-        if(isJockeyAdded) {
-            emit JockeyAdded(msg.sender, string.concat(jockeyName, " jockey has been added"));
-        }
         return isJockeyAdded;
     }
 
@@ -50,15 +37,11 @@ contract HorseRaceBetting is IBetting{
             location = Location.Asia;
         }
         createNewRace(location, participatingHorses, participatingJockeys);
-        emit RaceCreated(msg.sender, "race has been created");
-
     }
 
     function cancelRace(uint raceId) public {
         refundRemoveBets(raceId);
         cancelHorseRace(raceId);
-        emit RaceCancelled(msg.sender, raceId, "race has been cancelled");
-
     }
 
     function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) public payable {
@@ -75,7 +58,6 @@ contract HorseRaceBetting is IBetting{
     }
 
     function performRace(uint raceId) public {
-        emit RaceStarted(msg.sender, raceId, "race is getting started");
         startHorseRace(raceId);
         verifyBetWinsAndSettleCash(raceId);
     }

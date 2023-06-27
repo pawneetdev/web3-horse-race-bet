@@ -9,6 +9,10 @@ import "../../constants/error_message.sol";
 
 abstract contract IBetting is IHorseRace, IUserStorage {
 
+    event BetReceived(address indexed sender, string betType, uint raceId, uint userId, uint horseId);
+    event BetRefunded(address indexed sender, uint raceId, uint userId, uint amount, string message);
+    event RaceFinished(address indexed sender, BetType betType, uint raceId, uint userId, uint256 proportion, string message);
+
     mapping(uint256 => Bet[]) raceBets;
 
     modifier invalidBetAmount() {
@@ -68,6 +72,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
     function refundRemoveBets(uint256 raceId) internal onlyOwner(REFUND_REMOVE_BETS) invalidRaceId(raceId) raceCompleted(raceId) {
         for (uint256 i = 0; i < raceBets[raceId].length; i++) {
             transferTo(raceBets[raceId][i].userId, raceBets[raceId][i].amount);
+            emit BetRefunded(msg.sender, raceId, raceBets[raceId][i].userId, raceBets[raceId][i].amount, "refund remove bets");
         }
         delete raceBets[raceId];
     }
@@ -130,6 +135,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             if (bets[i].betType == BetType.Win) {
                 if (pos == 0) {
                     transferTo(bets[i].userId, winBetCreditProportion);
+                    emit RaceFinished(msg.sender, BetType.Win, raceId, bets[i].userId, winBetCreditProportion, "race is finished");
                 }
             }
             if (bets[i].betType == BetType.Place) {
@@ -164,10 +170,12 @@ abstract contract IBetting is IHorseRace, IUserStorage {
                         }
                     }
                 }
+                emit RaceFinished(msg.sender, BetType.Place, raceId, bets[i].userId, placeBetCreditProportion, "race is finished");
             }
             if (bets[i].betType == BetType.Show) {
                 if (pos <= 2) {
                     transferTo(bets[i].userId, showBetCreditProportion);
+                    emit RaceFinished(msg.sender, BetType.Show, raceId, bets[i].userId, showBetCreditProportion, "race is finished");
                 }
             }
         }

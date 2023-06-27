@@ -2,17 +2,19 @@
 pragma solidity ^0.8.10;
 import "hardhat/console.sol";
 import "./abstracts/i_betting.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+
 contract HorseRaceBetting is IBetting{
 
+    constructor(address raceTokenAddress){
+        raceToken = IERC20(raceTokenAddress);
+    }
+
     function addNewHorse(string memory horseName) public returns (bool){
-        bool isHorseAdded = addHorse(horseName);
-        return isHorseAdded;
+        return addHorse(horseName);
     }
 
     function addNewJockey(string memory jockeyName) public returns (bool){
-        bool isJockeyAdded = addJockey(jockeyName);
-        return isJockeyAdded;
+        return addJockey(jockeyName);
     }
 
     function getHorses() public view returns (Horse []memory){
@@ -21,6 +23,14 @@ contract HorseRaceBetting is IBetting{
 
     function getJockeys() public view returns (Jockey []memory){
         return jockeys;
+    }
+
+    function getRaces() public view returns (Race []memory){
+        return racesList;
+    }
+
+    function getRaceBets(uint raceId) public view returns (Bet[] memory){
+        return raceBets[raceId];
     }
 
     function createRace(string memory locationId,
@@ -56,7 +66,7 @@ contract HorseRaceBetting is IBetting{
         placeBet(newBetType, raceId, userId, horseId);
     }
 
-    function performRace(uint raceId) public {
+    function performRace(uint raceId) public payable {
         startHorseRace(raceId);
         verifyBetWinsAndSettleCash(raceId);
     }

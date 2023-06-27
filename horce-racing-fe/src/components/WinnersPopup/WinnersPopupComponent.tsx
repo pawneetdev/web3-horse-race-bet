@@ -98,6 +98,7 @@ const WinnersPopupComponent: React.FC<LoadingPopupIntf> = ({loadPopup, raceId, c
               </div>
             )
           })}
+          {!winners.length && <Typography variant="subtitle1" color="error">Sorry no one has won the race!</Typography>}
         </DialogContent>
       </Dialog>
   );

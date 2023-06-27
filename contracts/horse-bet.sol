@@ -70,4 +70,8 @@ contract HorseRaceBetting is IBetting{
         startHorseRace(raceId);
         verifyBetWinsAndSettleCash(raceId);
     }
+
+    function getUsername(uint userId) public view returns (string memory) {
+        return usersData[userId].name;
+    }
 }

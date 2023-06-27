@@ -10,6 +10,12 @@ import "hardhat/console.sol";
 abstract contract IHorseRace {
     using StringUtils for string;
 
+    event HorseAdded(address indexed sender, string message);
+    event JockeyAdded(address indexed sender, string message);
+    event RaceCreated(address indexed sender, uint raceId, string message);
+    event RaceStarted(address indexed sender, uint raceId, string message);
+    event RaceCancelled(address indexed sender, uint raceId, string message);
+
     constructor() {
         owner = msg.sender;
     }
@@ -86,12 +92,14 @@ abstract contract IHorseRace {
         races[newRaceId] = newRace;
         racesList.push(newRace);
         racesCount = racesCount + 1;
+        emit RaceCreated(msg.sender, newRaceId, "race has been created");
     }
 
     function addHorse(string memory horseName) internal onlyOwner(ADD_HORSE) returns (bool) {
         uint256 horseId = horses.length + 1;
         Horse memory newHorse = Horse(horseId, string(horseName));
         horses.push(newHorse);
+        emit HorseAdded(msg.sender, string.concat(horseName, " horse has been added"));
         return true;
     }
 
@@ -99,6 +107,7 @@ abstract contract IHorseRace {
         uint256 jockeyId = jockeys.length + 1;
         Jockey memory newHorse = Jockey(jockeyId, string(jockeyName));
         jockeys.push(newHorse);
+        emit JockeyAdded(msg.sender, string.concat(jockeyName, " jockey has been added"));
         return true;
     }
 
@@ -138,9 +147,11 @@ abstract contract IHorseRace {
         races[raceId].horseRaceCompletionSeconds = horseRaceCompletionDur;
         races[raceId].horsesInRankOrder = sortAscending(horseRaceCompletionDur, races[raceId].participatingHorses);
         races[raceId].raceState = RaceState.COMPLETED;
+        emit RaceStarted(msg.sender, raceId, "race started");
     }
 
     function cancelHorseRace(uint256 raceId) internal onlyOwner(CANCEL_HORSE_RACE) invalidRaceId(raceId) raceCompleted(raceId) {
         races[raceId].raceState = RaceState.CANCELLED;
+        emit RaceCancelled(msg.sender, raceId, "race has been cancelled");
     }
 }

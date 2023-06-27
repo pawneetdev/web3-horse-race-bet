@@ -44,7 +44,7 @@ contract HorseRaceBetting is IBetting{
         cancelHorseRace(raceId);
     }
 
-    function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) public payable {
+    function placeNewBet(string memory betType, uint raceId, uint userId, uint horseId) payable public {
         BetType newBetType;
         if(keccak256(bytes(betType)) == keccak256("win")){
             newBetType = BetType.Win;
@@ -53,8 +53,7 @@ contract HorseRaceBetting is IBetting{
         }else if(keccak256(bytes(betType)) == keccak256("show")){
             newBetType = BetType.Show;
         }
-        placeBet(newBetType, raceId, userId, msg.value, horseId);
-        emit BetReceived(msg.sender, betType, raceId, userId, horseId);
+        placeBet(newBetType, raceId, userId, horseId);
     }
 
     function performRace(uint raceId) public {

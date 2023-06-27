@@ -224,7 +224,7 @@ abstract contract IBetting is IHorseRace, IUserStorage {
             if (
                 raceBets[raceId][i].userId == userId &&
                 raceBets[raceId][i].betType == betType &&
-                raceBets[raceId][i].horseId == horseId
+                raceBets[raceId][i].horseId == horseId && raceBets[raceId][i].winningPrize == 0
             ) {
                 transferTo(userId, prizeAmount);
                 raceBets[raceId][i].winningPrize = prizeAmount;

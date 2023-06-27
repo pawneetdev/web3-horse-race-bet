@@ -19,6 +19,8 @@ interface WalletContextType {
 export interface RaceIntf {
   raceId: number;
   loacationId: number;
+  hasCompleted: boolean;
+  hasStarted: boolean;
   horses: { name: string, id: number }[];
 }
 
@@ -73,7 +75,9 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
       const raceToUpdate: RaceIntf = {
         raceId: parseInt(race[i][0]),
         horses: mapHorse(race[i].participatingHorses.map((d: any) => parseInt(d))),
-        loacationId: race[i].location
+        loacationId: race[i].location,
+        hasCompleted: race[i].raceState === 2,
+        hasStarted: race[i].raceState === 1,
       }
       races.push(raceToUpdate);
     }

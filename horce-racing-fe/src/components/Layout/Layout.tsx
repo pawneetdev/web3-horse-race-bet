@@ -24,12 +24,15 @@ const Layout = () => {
             <Button color="inherit" onClick={ handleHomeNavigate }>
               Home
             </Button>
+            {user.Id !== 0 && <Button color="inherit" onClick={() => navigate('/bid')}>
+              Bid
+            </Button>}
+            <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}
+            {user.Id !== 0 && <Button color="inherit" onClick={() => navigate('/portfolio')}>
+              Portfolio
+            </Button>}
             <Button color="inherit" onClick={ handleLoginLogout }>
               { user.Id !== 0 ? 'Logout' : 'Login' }
-            </Button>
-            <Box flexGrow={1} /> {/* Empty box to push the wallet address to the right */}
-            <Button color="inherit" onClick={() => navigate('/portfolio')}>
-              Portfolio
             </Button>
           </Toolbar>
         </AppBar>

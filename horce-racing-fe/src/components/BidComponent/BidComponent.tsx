@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button, Card, CardContent, SelectChangeEvent, Tooltip } from '@mui/material'
 import classes from './BidComponent.module.scss';
 import { LOCATIONS, Bets} from '../../constants/races';
 import DialogComponent from "../DialogComponent/DialogComponent";
 import WalletContext, { RaceIntf } from '../../store/WalletContext';
 import LoadingPopup from "../LoadingPopup/LoadingPopup";
+import WinnersPopupComponent from "../WinnersPopup/WinnersPopupComponent";
+
 import { styled } from '@mui/system';
 
 const StyledCardContent = styled(CardContent)`
@@ -13,17 +15,20 @@ const StyledCardContent = styled(CardContent)`
   padding: 10;
 `;
 
-
-
 export interface BetIntf {
   horses: {name: string, id: number}[],
   betTypes: Bets[],
   raceId: number,
 }
 
+interface ShowWinnerStateIntf {
+  loadPopup: boolean;
+  raceId: number;
+}
+
 const BiddingComponent = () => {
   // const races: RaceIntf[] = RACES;
-  const { isConnected, races, user, contract } = useContext(WalletContext);
+  const { isConnected, races, user, contract, refreshRaces } = useContext(WalletContext);
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [isToolTip, setToolTip] = useState<boolean>(false);
@@ -32,29 +37,57 @@ const BiddingComponent = () => {
   const [horse, setHorse] = useState<string>('');
   const [dialogData, setDialogData] = useState<BetIntf>({} as BetIntf);
   const [isLoading, setLoading] = useState(false);
+  const [showWinnerState, setShowWinnerState] = useState<ShowWinnerStateIntf>({loadPopup: false, raceId: 0});
+  const [finishedRace, setFinishedRace] = useState(0);
+
+  useEffect(() => {
+    const listenToFinishEvent = () => {
+      contract.on('RaceFinished', (...args: any[]) => {
+        // Handle the event here
+        console.log('Race finished:', args);
+        const raceId = parseInt(args[1]);
+        setFinishedRace(raceId);
+      });
+      contract.on('RaceCreated', (...args: any[]) => {
+        refreshRaces();
+      })
+    }
+    listenToFinishEvent();
+    return () => {
+      contract.removeAllListeners('RaceFinished');
+    }
+  }, [contract])
 
   const handleBidButtonClick = (race: RaceIntf) => {
-    const dialog: BetIntf = {
-      horses: race.horses,
-      betTypes: getBetTypes(race.horses.length, race.loacationId),
-      raceId: race.raceId,
+    if(race.hasCompleted || race.raceId === finishedRace) {
+      setShowWinnerState({ loadPopup: true, raceId: race.raceId });
+    } else {
+      const dialog: BetIntf = {
+        horses: race.horses,
+        betTypes: getBetTypes(race.horses.length, race.loacationId),
+        raceId: race.raceId,
+      }
+      setDialogData(dialog);
+      setIsDialogOpen(true);
     }
-    setDialogData(dialog);
-    setIsDialogOpen(true);
   };
+
+  const closePopup = () => {
+    setShowWinnerState({ loadPopup: false, raceId: 0 });
+  }
 
   const getBetTypes = (horseCount: number, locId: number) => {
     let betTypes: Bets[] = [];
     if(locId === 0) {
       betTypes = [Bets.Show, Bets.Place, Bets.Straight];
     } else {
-      betTypes = [Bets.Show, Bets.Straight];
+      betTypes = [Bets.Place, Bets.Straight];
     }
     if(locId === 0 && horseCount < 4) {
       betTypes = [Bets.Place, Bets.Straight];
     }
     if(horseCount < 3) {
-      betTypes = [Bets.Show, Bets.Straight];
+      betTypes = [Bets.Straight];
     }
     return betTypes;
   }
@@ -71,9 +104,9 @@ const BiddingComponent = () => {
     setHorse(event.target.value as string);
   };
 
-  const handleMouseOver = (event: React.MouseEvent, index: number) => {
+  const handleMouseOver = (event: React.MouseEvent, index: number, hasStarted: boolean) => {
     setCurrentCard(index);
-    if(!isConnected) {
+    if(hasStarted) {
       setToolTip(true);
     }
   }
@@ -143,12 +176,15 @@ const BiddingComponent = () => {
             <StyledCardContent>
               <h2 style={{margin: 0}}>{ loc.title }</h2>
               <p style={{ fontFamily: "DynaPuff" }}>{loc.description}</p>
-              <Tooltip title="Should connect to wallet to place Bid" open={isToolTip && index === currentCard}>
-                <span onMouseOver={(event) => handleMouseOver(event, index)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>
-                  <Button variant="contained" onClick={(event) => handleBidButtonClick(race)} disabled={!isConnected}>
-                    Place a Bid
+              {!race.hasStarted && <Button variant="contained" color={ (race.hasCompleted || finishedRace === race.raceId) ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
+                {(race.hasCompleted || finishedRace === race.raceId) ? 'Show winners' : 'Place a Bid'}
+              </Button>}
+              <Tooltip title="This race has already started!" open={isToolTip && index === currentCard}>
+                {race.hasStarted ? <span onMouseOver={(event) => handleMouseOver(event, index, race.hasStarted)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>
+                  <Button style={{ color: 'white', background: 'red' }} variant="contained" color='error' onClick={(event) => handleBidButtonClick(race)} disabled={race.hasStarted}>
+                    {race.hasCompleted ? 'Show winners' : 'Place a Bid'}
                   </Button>
-                </span>
+                </span> : <span></span>}
               </Tooltip>
             </StyledCardContent>
           </Card>
@@ -163,6 +199,7 @@ const BiddingComponent = () => {
         onHorseChange={handleHorseChange}
         dialogData={dialogData}
         onBidSubmit={handleBidSubmit} />
+    <WinnersPopupComponent loadPopup={showWinnerState.loadPopup} closePopup={closePopup} raceId={showWinnerState.raceId} />
 
     <LoadingPopup loadPopup={isLoading} />
       

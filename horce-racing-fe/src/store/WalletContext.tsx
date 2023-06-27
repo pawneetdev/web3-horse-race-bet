@@ -14,11 +14,14 @@ interface WalletContextType {
     Id: number,
     walletAddress: string,
   };
+  refreshRaces: () => void;
   races: RaceIntf[];
 }
 export interface RaceIntf {
   raceId: number;
   loacationId: number;
+  hasCompleted: boolean;
+  hasStarted: boolean;
   horses: { name: string, id: number }[];
 }
 
@@ -38,6 +41,7 @@ const WalletContext = createContext<WalletContextType>({
   contract: null,
   races: [],
   signer: null,
+  refreshRaces: () => {},
 });
 
 
@@ -73,17 +77,24 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
       const raceToUpdate: RaceIntf = {
         raceId: parseInt(race[i][0]),
         horses: mapHorse(race[i].participatingHorses.map((d: any) => parseInt(d))),
-        loacationId: race[i].location
+        loacationId: race[i].location,
+        hasCompleted: race[i].raceState === 2,
+        hasStarted: race[i].raceState === 1,
       }
       races.push(raceToUpdate);
     }
     
     setRaces(races);
   }
-  const performSignIn = async (user: any) => {
-    setUser(user);
+
+  const refreshRaces = async() => {
     const horses = await getHorses();
     await getRaces(horses);
+  }
+
+  const performSignIn = async (user: any) => {
+    setUser(user);
+    await refreshRaces();
   }
   const connectWallet = async (contractAddress: string) => {
     try {
@@ -117,7 +128,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   };
 
   return (
-    <WalletContext.Provider value={{walletAddress, signer, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
+    <WalletContext.Provider value={{walletAddress, signer, refreshRaces, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
       {children}
     </WalletContext.Provider>
   );

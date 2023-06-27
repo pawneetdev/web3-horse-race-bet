@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button, Card, CardContent, SelectChangeEvent, Tooltip } from '@mui/material'
 import classes from './BidComponent.module.scss';
 import { LOCATIONS, Bets} from '../../constants/races';
@@ -28,7 +28,7 @@ interface ShowWinnerStateIntf {
 
 const BiddingComponent = () => {
   // const races: RaceIntf[] = RACES;
-  const { isConnected, races, user, contract } = useContext(WalletContext);
+  const { isConnected, races, user, contract, refreshRaces } = useContext(WalletContext);
 
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [isToolTip, setToolTip] = useState<boolean>(false);
@@ -38,9 +38,28 @@ const BiddingComponent = () => {
   const [dialogData, setDialogData] = useState<BetIntf>({} as BetIntf);
   const [isLoading, setLoading] = useState(false);
   const [showWinnerState, setShowWinnerState] = useState<ShowWinnerStateIntf>({loadPopup: false, raceId: 0});
+  const [finishedRace, setFinishedRace] = useState(0);
+
+  useEffect(() => {
+    const listenToFinishEvent = () => {
+      contract.on('RaceFinished', (...args: any[]) => {
+        // Handle the event here
+        console.log('Race finished:', args);
+        const raceId = parseInt(args[1]);
+        setFinishedRace(raceId);
+      });
+      contract.on('RaceCreated', (...args: any[]) => {
+        refreshRaces();
+      })
+    }
+    listenToFinishEvent();
+    return () => {
+      contract.removeAllListeners('RaceFinished');
+    }
+  }, [contract])
 
   const handleBidButtonClick = (race: RaceIntf) => {
-    if(race.hasCompleted) {
+    if(race.hasCompleted || race.raceId === finishedRace) {
       setShowWinnerState({ loadPopup: true, raceId: race.raceId });
     } else {
       const dialog: BetIntf = {
@@ -68,7 +87,7 @@ const BiddingComponent = () => {
       betTypes = [Bets.Place, Bets.Straight];
     }
     if(horseCount < 3) {
-      betTypes = [Bets.Show, Bets.Straight];
+      betTypes = [Bets.Straight];
     }
     return betTypes;
   }
@@ -145,8 +164,6 @@ const BiddingComponent = () => {
       </div>
       {races.map((race, index) => {
         const loc = LOCATIONS[race.loacationId];
-        if(index === 0) race.hasCompleted = true;
-        if(index === 1) race.hasStarted = true;
         return (
           <Card key={race.raceId} className={`${classes.wrapper}`}
             sx={{
@@ -159,8 +176,8 @@ const BiddingComponent = () => {
             <StyledCardContent>
               <h2 style={{margin: 0}}>{ loc.title }</h2>
               <p style={{ fontFamily: "DynaPuff" }}>{loc.description}</p>
-              {!race.hasStarted && <Button variant="contained" color={ race.hasCompleted ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
-                {race.hasCompleted ? 'Show winners' : 'Place a Bid'}
+              {!race.hasStarted && <Button variant="contained" color={ (race.hasCompleted || finishedRace === race.raceId) ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
+                {(race.hasCompleted || finishedRace === race.raceId) ? 'Show winners' : 'Place a Bid'}
               </Button>}
               <Tooltip title="This race has already started!" open={isToolTip && index === currentCard}>
                 {race.hasStarted ? <span onMouseOver={(event) => handleMouseOver(event, index, race.hasStarted)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>

@@ -14,6 +14,7 @@ interface WalletContextType {
     Id: number,
     walletAddress: string,
   };
+  refreshRaces: () => void;
   races: RaceIntf[];
 }
 export interface RaceIntf {
@@ -40,6 +41,7 @@ const WalletContext = createContext<WalletContextType>({
   contract: null,
   races: [],
   signer: null,
+  refreshRaces: () => {},
 });
 
 
@@ -84,10 +86,15 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
     
     setRaces(races);
   }
-  const performSignIn = async (user: any) => {
-    setUser(user);
+
+  const refreshRaces = async() => {
     const horses = await getHorses();
     await getRaces(horses);
+  }
+
+  const performSignIn = async (user: any) => {
+    setUser(user);
+    await refreshRaces();
   }
   const connectWallet = async (contractAddress: string) => {
     try {
@@ -121,7 +128,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
   };
 
   return (
-    <WalletContext.Provider value={{walletAddress, signer, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
+    <WalletContext.Provider value={{walletAddress, signer, refreshRaces, isConnected, connectWallet, disconnectWallet, user, performSignIn, contract, races}}>
       {children}
     </WalletContext.Provider>
   );

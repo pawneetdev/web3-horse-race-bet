@@ -173,7 +173,7 @@ const BiddingComponent = () => {
             <StyledCardContent>
               <h2 style={{margin: 0}}>{ loc.title }</h2>
               <p style={{ fontFamily: "DynaPuff" }}>{loc.description}</p>
-              {!race.hasStarted && <Button variant="contained" color={ race.hasCompleted ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
+              {(!race.hasStarted && !race.hasCancelled) && <Button variant="contained" color={ race.hasCompleted ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
                 {race.hasCompleted ? 'Show winners' : 'Place a Bid'}
               </Button>}
               <Tooltip title="This race has cancelled!" open={isToolTip && index === currentCard}>

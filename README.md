@@ -20,7 +20,7 @@ To set up and run the application locally, follow these steps:
 
 1. Clone the repository: git clone https://github.com/your-username/horse-race-betting-dapp.git
 2. Install the dependencies: cd horse-race-betting-dapp/horse-racing-fe && npm install
-3. 3. Start the development server: npm start
+3. Start the development server: npm start
 4. Open your browser and visit `http://localhost:3000` to access the application.
 5. Connect your wallet using the Metamask extension and follow the instructions on the user interface to place your horse race bets.
 

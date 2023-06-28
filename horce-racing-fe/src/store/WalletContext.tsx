@@ -4,7 +4,7 @@ import abi from "../abi.json";
 interface WalletContextType {
   walletAddress: string;
   isConnected: boolean;
-  connectWallet: (contractAddress: string) => void;
+  connectWallet: () => void;
   disconnectWallet: () => Promise<boolean>;
   performSignIn: (user: any) => void;
   signer: any;
@@ -98,11 +98,12 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
     setUser(user);
     await refreshRaces();
   }
-  const connectWallet = async (contractAddress: string) => {
+  const connectWallet = async () => {
     try {
       if ((window as any).ethereum) {
         // Request access to the user's MetaMask account
         const provider = new ethers.providers.Web3Provider((window as any).ethereum)
+        const contractAddress = '0x4a5142166d8a90c8d90d3c8e5ec46a0a19a7c21f';
         const accounts = await provider.send("eth_requestAccounts", []);
         console.log(await provider.getNetwork());
         const signer = provider.getSigner();

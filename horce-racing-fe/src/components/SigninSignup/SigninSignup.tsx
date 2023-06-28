@@ -11,12 +11,7 @@ const SigninSignUpComponent: React.FC = () => {
   const [error, setError] = useState('');
   const { walletAddress, connectWallet, disconnectWallet, performSignIn, contract } = useContext(WalletContext);
   const navigate = useNavigate();
-  const [contractAddress, setContractAddress] = useState('');
   const [isLoading, setLoading] = useState(false);
-
-  const handleContractChange = (event: any) => {
-    setContractAddress(event.target.value);
-  }
 
   const handleSignIn = async() => {
     // Handle sign-in logic with walletAddress
@@ -42,7 +37,7 @@ const SigninSignUpComponent: React.FC = () => {
     if(walletAddress !== '') {
       disconnectWallet();
     } else {
-      connectWallet(contractAddress);
+      connectWallet();
     }
   }
 
@@ -86,11 +81,12 @@ const SigninSignUpComponent: React.FC = () => {
         <div className="wallet-flex">
         <TextField
             fullWidth
-            label="Contract address"
+            label="Wallet address"
             variant="outlined"
-            onInput={handleContractChange}
+            value={walletAddress}
+            disabled
           />
-          <Button disabled={ contractAddress === '' } className="btn" variant="contained" color={ walletAddress !== '' ? 'error' : 'success' } onClick={handleConnectContract}>
+          <Button disabled={ walletAddress !== '' } className="btn" variant="contained" color={ walletAddress !== '' ? 'error' : 'success' } onClick={handleConnectContract}>
             {walletAddress !== '' ? 'Disconnect wallet' : 'Connect Wallet'}
           </Button>
         </div>

@@ -38,7 +38,6 @@ const BiddingComponent = () => {
   const [dialogData, setDialogData] = useState<BetIntf>({} as BetIntf);
   const [isLoading, setLoading] = useState(false);
   const [showWinnerState, setShowWinnerState] = useState<ShowWinnerStateIntf>({loadPopup: false, raceId: 0});
-  const [finishedRace, setFinishedRace] = useState(0);
 
   useEffect(() => {
     const listenToFinishEvent = () => {
@@ -57,7 +56,7 @@ const BiddingComponent = () => {
   }, [contract])
 
   const handleBidButtonClick = (race: RaceIntf) => {
-    if(race.hasCompleted || race.raceId === finishedRace) {
+    if(race.hasCompleted) {
       setShowWinnerState({ loadPopup: true, raceId: race.raceId });
     } else {
       const dialog: BetIntf = {
@@ -102,9 +101,9 @@ const BiddingComponent = () => {
     setHorse(event.target.value as string);
   };
 
-  const handleMouseOver = (event: React.MouseEvent, index: number, hasStarted: boolean) => {
+  const handleMouseOver = (event: React.MouseEvent, index: number, hasCancelled: boolean) => {
     setCurrentCard(index);
-    if(hasStarted) {
+    if(hasCancelled) {
       setToolTip(true);
     }
   }
@@ -174,13 +173,13 @@ const BiddingComponent = () => {
             <StyledCardContent>
               <h2 style={{margin: 0}}>{ loc.title }</h2>
               <p style={{ fontFamily: "DynaPuff" }}>{loc.description}</p>
-              {!race.hasStarted && <Button variant="contained" color={ (race.hasCompleted || finishedRace === race.raceId) ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
-                {(race.hasCompleted || finishedRace === race.raceId) ? 'Show winners' : 'Place a Bid'}
+              {!race.hasStarted && <Button variant="contained" color={ race.hasCompleted ? 'success' : 'primary' } onClick={(event) => handleBidButtonClick(race)}>
+                {race.hasCompleted ? 'Show winners' : 'Place a Bid'}
               </Button>}
-              <Tooltip title="This race has already started!" open={isToolTip && index === currentCard}>
-                {race.hasStarted ? <span onMouseOver={(event) => handleMouseOver(event, index, race.hasStarted)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>
-                  <Button style={{ color: 'white', background: 'red' }} variant="contained" color='error' onClick={(event) => handleBidButtonClick(race)} disabled={race.hasStarted}>
-                    {race.hasCompleted ? 'Show winners' : 'Place a Bid'}
+              <Tooltip title="This race has cancelled!" open={isToolTip && index === currentCard}>
+                {race.hasCancelled ? <span onMouseOver={(event) => handleMouseOver(event, index, race.hasCancelled)} onMouseLeave={ (event) => handleMouseLeave(event, index)}>
+                  <Button style={{ color: 'white', background: 'red' }} variant="contained" color='error' onClick={(event) => handleBidButtonClick(race)} disabled={race.hasCancelled}>
+                    Place a Bid
                   </Button>
                 </span> : <span></span>}
               </Tooltip>

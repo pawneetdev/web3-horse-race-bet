@@ -22,6 +22,7 @@ export interface RaceIntf {
   loacationId: number;
   hasCompleted: boolean;
   hasStarted: boolean;
+  hasCancelled: boolean;
   horses: { name: string, id: number }[];
 }
 
@@ -80,6 +81,7 @@ export const WalletProvider: React.FC<WalletContextProps> = ({ children }) => {
         loacationId: race[i].location,
         hasCompleted: race[i].raceState === 2,
         hasStarted: race[i].raceState === 1,
+        hasCancelled: race[i].raceState === 3,
       }
       races.push(raceToUpdate);
     }

@@ -86,7 +86,7 @@ const SigninSignUpComponent: React.FC = () => {
             value={walletAddress}
             disabled
           />
-          <Button disabled={ walletAddress !== '' } className="btn" variant="contained" color={ walletAddress !== '' ? 'error' : 'success' } onClick={handleConnectContract}>
+          <Button className="btn" variant="contained" color={ walletAddress !== '' ? 'error' : 'success' } onClick={handleConnectContract}>
             {walletAddress !== '' ? 'Disconnect wallet' : 'Connect Wallet'}
           </Button>
         </div>

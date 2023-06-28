@@ -1,4 +1,5 @@
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, Alert, DialogActions, FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import Warning from '@mui/icons-material/Warning';
 import { BetIntf } from '../BidComponent/BidComponent';
 
 interface BidDialogProps {
@@ -51,6 +52,9 @@ const DialogComponent: React.FC<BidDialogProps> = function ({
                 )
               }) }
             </Select>
+            <Alert icon={<Warning />} severity="warning" style={{ marginTop: '10px', height: '50px', backgroundColor: 'orange', color: 'red' }}>
+              You will be charged 50 RACE tokens!
+            </Alert>
           </FormControl>
         </DialogContent>
         <DialogActions>
